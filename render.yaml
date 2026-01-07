@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: pranav-cv-generator
+    runtime: docker
+    repo: https://github.com/ghorpadeire/CvGenTool
+    branch: main
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: CLAUDE_API_KEY
+        sync: false
+      - key: PORT
+        value: 10000
+    healthCheckPath: /
