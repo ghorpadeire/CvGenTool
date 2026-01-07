@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<!--
+    index.html - Main input page for CV Generator
+
+    This page allows users to:
+    1. Paste a job description
+    2. Generate a tailored CV
+    3. View recent generations
+
+    @author Pranav Ghorpade
+    @version 1.0
+
+    Interview Note:
+    Using Thymeleaf for server-side templating with vanilla JavaScript
+    for interactivity. This keeps the frontend simple and maintainable.
+-->
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Generator - Powered by Claude AI</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <h1>CV Generator</h1>
+            <p class="subtitle">Powered by Claude Sonnet 4 AI</p>
+            <p class="candidate-name" th:text="'For: ' + ${candidateName}">For: Pranav Ghorpade</p>
+        </header>
+
+        <!-- Warning if API not configured -->
+        <div class="warning-banner" th:if="${!apiConfigured}">
+            <strong>Warning:</strong>
+            <span th:text="${warningMessage}">API not configured</span>
+        </div>
+
+        <!-- Main Form Section -->
+        <main class="main-content">
+            <form id="cvForm" class="cv-form">
+                <div class="form-group">
+                    <label for="jobDescription">Paste Job Description:</label>
+                    <textarea
+                        id="jobDescription"
+                        name="jobDescription"
+                        rows="12"
+                        placeholder="Paste the complete job description here...
+
+Example:
+We are looking for a Senior Java Developer to join our team...
+
+Requirements:
+- 5+ years of experience with Java
+- Experience with Spring Boot
+- Knowledge of REST APIs
+..."
+                        required
+                        minlength="50"
+                    ></textarea>
+                    <p class="char-count">
+                        <span id="charCount">0</span> characters
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    <label for="companyName">Company Name (optional):</label>
+                    <input
+                        type="text"
+                        id="companyName"
+                        name="companyName"
+                        placeholder="e.g., Google, Microsoft, Amazon"
+                        maxlength="100"
+                    >
+                    <p class="help-text">Used for naming the PDF file</p>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="generateBtn" th:disabled="${!apiConfigured}">
+                    Generate Tailored CV
+                </button>
+            </form>
+
+            <!-- Loading Indicator -->
+            <div id="loadingIndicator" class="loading-indicator hidden">
+                <div class="spinner"></div>
+                <p>Starting generation...</p>
+            </div>
+        </main>
+
+        <!-- Recent Generations Section -->
+        <section class="recent-section" th:if="${!recentGenerations.isEmpty()}">
+            <h2>Recent Generations</h2>
+            <ul class="recent-list">
+                <li th:each="cv : ${recentGenerations}" class="recent-item">
+                    <div class="recent-info">
+                        <span class="company-name" th:text="${cv.companyName} ?: 'Unknown Company'">Company</span>
+                        <span class="job-title" th:text="${cv.jobTitle} ?: ''">Position</span>
+                        <span class="match-score" th:if="${cv.keywordCoverage != null}">
+                            <span th:text="${cv.keywordCoverage}">92</span>% match
+                        </span>
+                    </div>
+                    <div class="recent-actions">
+                        <a th:href="@{/result/{id}(id=${cv.id})}" class="btn btn-small">View</a>
+                        <a th:href="@{/api/download/{id}/pdf(id=${cv.id})}" class="btn btn-small btn-secondary">PDF</a>
+                    </div>
+                </li>
+            </ul>
+            <a href="/history" class="view-all-link">View All History →</a>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Created by <strong th:text="${candidateName}">Pranav Ghorpade</strong></p>
+            <p>Interview Portfolio Project | 2025</p>
+        </footer>
+    </div>
+
+    <script th:src="@{/js/app.js}"></script>
+    <script>
+        // Initialize character counter
+        const textarea = document.getElementById('jobDescription');
+        const charCount = document.getElementById('charCount');
+
+        textarea.addEventListener('input', function() {
+            charCount.textContent = this.value.length;
+        });
+
+        // Form submission handler
+        document.getElementById('cvForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const jobDescription = textarea.value.trim();
+            const companyName = document.getElementById('companyName').value.trim();
+
+            if (jobDescription.length < 50) {
+                alert('Please enter a job description with at least 50 characters.');
+                return;
+            }
+
+            // Show loading indicator
+            document.getElementById('loadingIndicator').classList.remove('hidden');
+            document.getElementById('generateBtn').disabled = true;
+
+            // Submit to API
+            generateCv(jobDescription, companyName);
+        });
+
+        async function generateCv(jobDescription, companyName) {
+            try {
+                const response = await fetch('/api/generate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        jobDescription: jobDescription,
+                        companyName: companyName || null
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.id) {
+                    // Redirect to generating page or result page
+                    if (data.status === 'COMPLETED') {
+                        window.location.href = '/result/' + data.id;
+                    } else {
+                        window.location.href = '/generating/' + data.id;
+                    }
+                } else {
+                    throw new Error(data.errorMessage || 'Generation failed');
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+                document.getElementById('loadingIndicator').classList.add('hidden');
+                document.getElementById('generateBtn').disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>

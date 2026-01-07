@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!--
+    error.html - Error page template
+
+    Displays error messages when something goes wrong.
+
+    @author Pranav Ghorpade
+    @version 1.0
+-->
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error - CV Generator</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>CV Generator</h1>
+            <p class="subtitle">Powered by Claude Sonnet 4 AI</p>
+        </header>
+
+        <main class="main-content error-page">
+            <div class="error-card">
+                <div class="error-icon">❌</div>
+                <h2>Something Went Wrong</h2>
+                <p class="error-message" th:text="${errorMessage} ?: 'An unexpected error occurred'">
+                    Error message here
+                </p>
+
+                <div class="error-suggestions">
+                    <h3>What you can try:</h3>
+                    <ul>
+                        <li>Check your job description is valid and at least 50 characters</li>
+                        <li>Ensure the Claude API key is configured</li>
+                        <li>Try again in a few moments</li>
+                        <li>Contact support if the problem persists</li>
+                    </ul>
+                </div>
+
+                <div class="error-actions">
+                    <a href="/" class="btn btn-primary">Go Back Home</a>
+                    <a href="/history" class="btn btn-secondary">View History</a>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>Created by Pranav Ghorpade</p>
+            <p>Interview Portfolio Project | 2025</p>
+        </footer>
+    </div>
+</body>
+</html>
