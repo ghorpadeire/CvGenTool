@@ -1,168 +1,158 @@
 {
-  "name": "Pranav Prasanna Ghorpade",
-  "location": "Dublin, Ireland",
-  "phone": "+353 89 943 9744",
-  "email": "pranav.ghorpade3108@gmail.com",
-  "linkedin": "linkedin.com/in/pranav-ire",
-  "github": "github.com/ghorpadeire",
-  "github_repos": 24,
-  "website": "https://ghorpadeire.github.io/",
-  "medium": "https://pranav-ire.medium.com/",
-  "visa_status": "Stamp 1G (Work Authorized, eligible for Critical Skills Employment Permit)",
+  "personal": {
+    "name": "Pranav Prasanna Ghorpade",
+    "location": "Dublin, Ireland",
+    "phone": "+353 89 943 9744",
+    "email": "pranav.ghorpade3108@gmail.com",
+    "linkedin": "https://linkedin.com/in/pranav-ire",
+    "github": "https://github.com/ghorpadeire",
+    "website": "https://ghorpadeire.github.io/",
+    "medium": "https://pranav-ire.medium.com/"
+  },
+
+  "summary": "Fresh MSc Cybersecurity graduate (NCI Dublin, 2:1) with CEH Master certification and BTech in Computer Engineering. Trained in Core Java and JDBC with hands-on project experience in secure systems development. Currently expanding skills in Spring Boot and REST APIs. 24 GitHub repositories demonstrating coding ability. Authorized to work in Ireland (Stamp 1G visa - eligible for Critical Skills Employment Permit).",
 
   "experience_level": "FRESH_GRADUATE",
-  "note_to_ai": "This candidate is a FRESH GRADUATE with NO commercial tech experience. Do NOT invent fake work experience like 'Red Fibre' or 'SecurePoint'. Emphasize education, certifications (especially CEH Master), and real GitHub projects. The Tesco retail job should be included as it demonstrates work ethic and reliability.",
+  "visa_status": "Stamp 1G (Work Authorized, eligible for Critical Skills Employment Permit)",
+  "github_repos": 24,
 
   "education": [
     {
       "degree": "MSc Cybersecurity",
+      "grade": "2:1",
       "institution": "National College of Ireland",
       "location": "Dublin",
       "period": "Sep 2023 - Sep 2024",
-      "grade": "2:1",
       "modules": ["Network Security", "Secure Coding", "Cloud Security", "Risk Management"],
-      "capstone": "FogSec Cloud Storage - Secure fault-tolerant cloud storage with AES encryption and regenerating codes"
+      "project": "FogSec Cloud Storage - Secure fault-tolerant cloud storage with AES encryption and regenerating codes"
     },
     {
       "degree": "BTech Computer Engineering",
+      "grade": "CGPA: 8.11/10",
       "institution": "Savitribai Phule Pune University",
       "location": "India",
       "period": "2018 - 2022",
-      "grade": "CGPA: 8.11/10",
-      "final_year_project": "Backend for encrypted file sharing with role-based authentication"
+      "project": "Backend for encrypted file sharing with role-based authentication"
     }
   ],
+
+  "experience": [
+    {
+      "title": "Retail Associate",
+      "company": "Tesco",
+      "location": "Dublin, Ireland",
+      "period": "2024 - Present",
+      "highlights": [
+        "Deliver excellent customer service and resolve queries efficiently in high-volume retail environment",
+        "Manage inventory and maintain organized stock systems with attention to detail",
+        "Handle cash transactions and POS operations accurately demonstrating reliability",
+        "Collaborate effectively with team members in fast-paced environment"
+      ],
+      "note": "Current employment demonstrating work ethic, reliability, and customer service skills"
+    }
+  ],
+
+  "skills": {
+    "languages": {
+      "proficient": ["Core Java", "SQL"],
+      "basics": ["Python", "C++", "PHP"],
+      "learning": ["TypeScript"]
+    },
+    "frontend": {
+      "basics": ["HTML", "CSS", "JavaScript"],
+      "note": "Familiar with web fundamentals"
+    },
+    "backend": {
+      "proficient": ["JDBC"],
+      "learning": ["Spring Boot", "REST APIs", "JPA/Hibernate"],
+      "note": "Currently taking Spring Boot course"
+    },
+    "databases": {
+      "proficient": ["MySQL", "PostgreSQL"],
+      "basics": ["SQL queries, joins"]
+    },
+    "cicd": {
+      "basics": ["Git", "GitHub"],
+      "learning": ["GitHub Actions", "Docker"]
+    },
+    "testing": {
+      "basics": ["Postman", "JUnit"],
+      "learning": ["Mockito"]
+    },
+    "cloud_ops": {
+      "learning": ["AWS (EC2, S3, IAM)", "Docker", "Kubernetes"],
+      "basics": ["Linux"],
+      "note": "Conceptual knowledge, currently learning"
+    },
+    "security_tools": ["Kali Linux", "Burp Suite", "Wireshark", "Nmap", "Metasploit (basic)"],
+    "other_tools": ["Git", "VS Code", "Postman"],
+    "practices": ["Vulnerability Assessment", "Penetration Testing", "Secure Coding", "OWASP methodologies"]
+  },
 
   "certifications": [
-    {
-      "name": "CEH Master v12",
-      "issuer": "EC-Council",
-      "status": "Completed",
-      "highlight": true,
-      "note": "This is a significant achievement - emphasize it!"
-    },
-    {
-      "name": "CEH Practical v12",
-      "issuer": "EC-Council",
-      "status": "Completed",
-      "highlight": true
-    },
-    {
-      "name": "CEH v12",
-      "issuer": "EC-Council",
-      "status": "Completed"
-    },
-    {
-      "name": "Core Java & JDBC",
-      "issuer": "QSpider Training Institute",
-      "status": "Completed"
-    },
-    {
-      "name": "CompTIA Security+",
-      "issuer": "CompTIA",
-      "status": "In Progress"
-    }
+    {"name": "CEH Master v12", "issuer": "EC-Council", "status": "Completed"},
+    {"name": "CEH Practical v12", "issuer": "EC-Council", "status": "Completed"},
+    {"name": "CEH v12", "issuer": "EC-Council", "status": "Completed"},
+    {"name": "Core Java & JDBC", "issuer": "QSpider Training Institute", "status": "Completed"},
+    {"name": "CompTIA Security+", "issuer": "CompTIA", "status": "In Progress"}
   ],
-
-  "technical_skills": {
-    "proficient": {
-      "note": "Can demonstrate in interview",
-      "skills": ["Core Java", "JDBC", "SQL", "Git", "GitHub", "Kali Linux", "Burp Suite", "Vulnerability Assessment", "Penetration Testing"]
-    },
-    "familiar": {
-      "note": "Used in projects/coursework",
-      "skills": ["Python", "C++", "PHP", "MySQL", "PostgreSQL", "Postman", "OWASP methodologies", "Linux/Unix", "HTML", "CSS", "JavaScript"]
-    },
-    "learning": {
-      "note": "Currently studying - be honest about this!",
-      "skills": ["Spring Boot", "REST APIs", "JPA/Hibernate", "Docker", "AWS (EC2, S3, IAM)", "Kubernetes"]
-    },
-    "security_tools": ["Kali Linux", "Burp Suite", "Wireshark", "Nmap", "Metasploit (basic)"]
-  },
 
   "projects": [
     {
       "name": "FogSec Cloud Storage",
       "tech": ["Java", "AES Encryption", "Regenerating Codes", "C++"],
-      "description": "Secure fault-tolerant cloud storage system with encryption and data recovery capabilities",
-      "type": "MSc Capstone Project",
+      "description": "Secure fault-tolerant cloud storage system with encryption and data recovery capabilities (MSc Capstone)",
       "github": "https://github.com/ghorpadeire/FogSec-Secure-Cloud-Storage-with-Regenerating-Codes"
     },
     {
       "name": "Secure File Share",
       "tech": ["Java", "Role-based Authentication"],
-      "description": "File sharing backend with access control and security features",
-      "type": "BTech Final Year Project",
+      "description": "File sharing backend with access control and security features (BTech Final Year Project)",
       "github": "https://github.com/ghorpadeire/secure-file-share"
     },
     {
       "name": "SSL Labs Assessment Tool",
       "tech": ["Spring Boot", "Java", "SSL/TLS"],
       "description": "Web application for remote SSL/TLS security assessment of HTTPS servers",
-      "type": "Academic Project",
       "github": "https://github.com/ghorpadeire/ssl-labs-tool"
     },
     {
       "name": "Secure Help Needy Platform",
-      "tech": ["PHP", "SQL", "bcrypt", "CSRF protection"],
-      "description": "Donor-needy connector with secure login and protection mechanisms",
-      "type": "Academic Project",
+      "tech": ["PHP", "SQL", "bcrypt"],
+      "description": "Donor-needy connector with secure login (bcrypt) and CSRF protection",
       "github": "https://github.com/ghorpadeire/SWDCA2_Secured_Version"
     },
     {
       "name": "Custom Kali Linux ISO Build",
       "tech": ["Linux", "Shell Scripting"],
       "description": "Full-featured bootable Kali Linux ISO with XFCE desktop and pre-installed penetration testing tools",
-      "type": "Personal Project",
       "github": "https://github.com/ghorpadeire/"
     },
     {
       "name": "Handwritten Digit Recognizer",
       "tech": ["Python", "Machine Learning"],
-      "description": "ML model for handwritten digit classification",
-      "type": "Academic Project",
+      "description": "ML model for handwritten digit classification using neural networks",
       "github": "https://github.com/ghorpadeire/Handwritten-digit-recognizer"
     }
   ],
 
-  "current_employment": {
-    "title": "Retail Associate",
-    "company": "Tesco",
-    "location": "Dublin, Ireland",
-    "period": "2024 - Present",
-    "include_in_cv": true,
-    "reason": "Shows work ethic, reliability, customer service skills, and ability to work in fast-paced environment",
-    "duties": [
-      "Deliver excellent customer service and resolve queries efficiently",
-      "Manage inventory and maintain organized stock systems",
-      "Handle cash transactions and POS operations accurately",
-      "Collaborate effectively in fast-paced team environment"
-    ]
-  },
+  "strengths": [
+    "Strong problem-solving and analytical thinking",
+    "Effective communication skills (customer-facing experience at Tesco)",
+    "Self-motivated learner (continuous upskilling, achieved CEH Master certification)",
+    "Team collaboration and reliability",
+    "Adaptable to fast-paced environments",
+    "Detail-oriented approach to security and quality"
+  ],
 
   "target_roles": [
     "Graduate Developer Program",
     "Junior Java Developer",
     "Entry-level Software Developer",
     "IT Support Engineer",
-    "IT Helpdesk Analyst",
     "SOC Analyst (Entry-level)",
-    "Cybersecurity Analyst (Entry-level)",
-    "Technical Support Engineer"
+    "Cybersecurity Analyst (Entry-level)"
   ],
 
-  "soft_skills": [
-    "Strong problem-solving and analytical thinking",
-    "Effective communication (customer-facing experience at Tesco)",
-    "Self-motivated learner (continuous upskilling, achieved CEH Master)",
-    "Team collaboration and reliability",
-    "Adaptable to fast-paced environments",
-    "Detail-oriented approach to security and quality"
-  ],
-
-  "languages": [
-    {"language": "English", "level": "Fluent"},
-    {"language": "Hindi", "level": "Native"},
-    {"language": "Marathi", "level": "Native"}
-  ]
+  "note_to_ai": "IMPORTANT: This candidate is a FRESH GRADUATE with NO commercial tech experience. The only work experience is retail at Tesco. Do NOT invent fake tech jobs. Emphasize: Education, CEH Master certification, GitHub projects (24 repos), and Stamp 1G visa status."
 }
