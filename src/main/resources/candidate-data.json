@@ -1,179 +1,168 @@
 {
-  "personal": {
-    "name": "Pranav Prasanna Ghorpade",
-    "location": "Dublin, Ireland",
-    "email": "pranav.ghorpade3108@gmail.com",
-    "phone": "+353 899439744",
-    "linkedin": "https://linkedin.com/in/pranav-ire",
-    "github": "https://github.com/ghorpadeire",
-    "website": "https://ghorpadeire.github.io/",
-    "medium": "https://pranav-ire.medium.com/"
-  },
+  "name": "Pranav Prasanna Ghorpade",
+  "location": "Dublin, Ireland",
+  "phone": "+353 89 943 9744",
+  "email": "pranav.ghorpade3108@gmail.com",
+  "linkedin": "linkedin.com/in/pranav-ire",
+  "github": "github.com/ghorpadeire",
+  "github_repos": 24,
+  "website": "https://ghorpadeire.github.io/",
+  "medium": "https://pranav-ire.medium.com/",
+  "visa_status": "Stamp 1G (Work Authorized, eligible for Critical Skills Employment Permit)",
 
-  "summary": "Graduate in Cybersecurity with strong expertise in Java backend development, full stack fundamentals (HTML/CSS/JavaScript; basic React/Angular for UI), and cloud deployments on AWS (Amazon). Solid foundation in Data Structures & Algorithms, Object Oriented Programming (OOP), Object Oriented Design, and the Software Development Lifecycle (SDLC). Focused on innovative, cutting edge technology and delivering secure, reliable web applications and user experiences.",
+  "experience_level": "FRESH_GRADUATE",
+  "note_to_ai": "This candidate is a FRESH GRADUATE with NO commercial tech experience. Do NOT invent fake work experience like 'Red Fibre' or 'SecurePoint'. Emphasize education, certifications (especially CEH Master), and real GitHub projects. The Tesco retail job should be included as it demonstrates work ethic and reliability.",
 
   "education": [
     {
       "degree": "MSc Cybersecurity",
-      "grade": "2:1",
       "institution": "National College of Ireland",
       "location": "Dublin",
-      "period": "Sep 2023 – Sep 2024",
+      "period": "Sep 2023 - Sep 2024",
+      "grade": "2:1",
       "modules": ["Network Security", "Secure Coding", "Cloud Security", "Risk Management"],
-      "project": "FogSec Cloud Storage - Secure fault-tolerant cloud storage with AES encryption and regenerating codes. Incorporates software design patterns for enhanced functionality."
+      "capstone": "FogSec Cloud Storage - Secure fault-tolerant cloud storage with AES encryption and regenerating codes"
     },
     {
-      "degree": "BTech Computer Engineering (STEM)",
-      "grade": "CGPA: 8.11/10",
+      "degree": "BTech Computer Engineering",
       "institution": "Savitribai Phule Pune University",
       "location": "India",
-      "period": "Sep 2018 – Jul 2022",
-      "project": "Backend for encrypted file sharing with role-based auth, Dockerized and CI-ready; supports web applications and user interfaces, aligning with SDLC and programming best practices."
+      "period": "2018 - 2022",
+      "grade": "CGPA: 8.11/10",
+      "final_year_project": "Backend for encrypted file sharing with role-based authentication"
     }
   ],
-
-  "experience": [
-    {
-      "title": "Back End Developer",
-      "company": "Red Fibre",
-      "location": "India",
-      "period": "Apr 2022 – Aug 2023",
-      "highlights": [
-        "Supported the backend team during ramp-up through code reviews and foundational class creation (DTOs, entities, interfaces) in Java/Spring Boot",
-        "Reviewed merge requests for OOP design, coding standards, and SDLC compliance; resolved SonarQube issues and performed light refactors",
-        "Implemented small enhancements and bug fixes in REST APIs (validation, exception handling, logging); verified behavior with Postman",
-        "Wrote unit tests and scaffolding with JUnit; increased coverage on touched modules and reduced regressions",
-        "Assisted with database tasks: simple MySQL queries/migrations; updated JPA/Hibernate entities to reflect schema changes",
-        "Helped maintain CI/CD (Jenkins/Git); fixed failing builds, optimized Maven dependency caching; published artifacts to Nexus",
-        "Contributed internal docs (README, runbooks); improved onboarding speed",
-        "Containerized local dev with Docker/docker-compose for environment parity and faster teammate setup",
-        "Participated in Agile ceremonies (stand-ups, reviews); triaged minor issues in Jira and supported release readiness"
-      ]
-    },
-    {
-      "title": "Cybersecurity Intern",
-      "company": "SecurePoint",
-      "location": "India",
-      "period": "Feb 2023 – Jul 2023",
-      "highlights": [
-        "Assisted in vulnerability scanning, system hardening, and SIEM alert monitoring",
-        "Contributed to team brainstorming sessions for security improvements"
-      ]
-    },
-    {
-      "title": "Retail Team Member",
-      "company": "Tesco Express Donnybrook",
-      "location": "Dublin",
-      "period": "Jan 2025 – Present",
-      "highlights": [
-        "Maintain store operations, inventory, and customer service in high-volume environment, demonstrating strong mobility management skills and global reach capabilities"
-      ],
-      "note": "Non-technical role, can be minimized or omitted based on JD relevance"
-    }
-  ],
-
-  "skills": {
-    "languages": {
-      "proficient": ["Java", "Python", "Bash", "SQL", "C++", "C#"],
-      "learning": ["TypeScript", "JavaScript", "Go (Golang)"]
-    },
-    "frontend": {
-      "basics": ["HTML", "CSS", "JavaScript"],
-      "frameworks": ["React (basic)", "Angular (basic)"],
-      "note": "UI & user interfaces"
-    },
-    "backend": {
-      "proficient": ["Spring Boot", "REST APIs", "JPA/Hibernate", "Maven", "JUnit"],
-      "basics": ["Node.js"]
-    },
-    "databases": {
-      "proficient": ["PostgreSQL", "MySQL", "SQL analytics (joins, windows, partitions)"],
-      "exposure": ["NoSQL modeling concepts"]
-    },
-    "cicd": {
-      "proficient": ["GitHub Actions", "Jenkins", "Git"],
-      "transferable": ["CircleCI workflows"]
-    },
-    "testing": {
-      "proficient": ["JUnit", "Postman", "Mockito"],
-      "learning": ["Jest"]
-    },
-    "cloud_ops": {
-      "proficient": ["AWS (IAM, EC2, S3, RDS, Lambda, CloudWatch, Route 53)", "Docker", "Linux"],
-      "exposure": ["Kubernetes", "Terraform", "Ansible"],
-      "other": ["Azure"]
-    },
-    "security_tools": ["Kali Linux"],
-    "other_tools": ["Git", "Jira", "VS Code"],
-    "practices": ["Software Development", "Software Design", "Architecture (fundamentals)", "Code Reviews", "Documentation", "Operational Support", "Full Stack fundamentals", "Git", "Feature Flags", "Observability basics", "GitOps basics"]
-  },
 
   "certifications": [
-    {"name": "CEH v12", "issuer": "EC-Council"},
-    {"name": "CEH Practical v12", "issuer": "EC-Council"},
-    {"name": "CEH Master v12", "issuer": "EC-Council"},
     {
-      "name": "DevOps (Udemy)",
-      "details": [
-        "Deployed Vprofile on AWS and Kubernetes with Terraform, Ansible, and Helm",
-        "Built CI pipelines with Jenkins and GitHub Actions; integrated Maven, SonarQube, Nexus",
-        "Bash/Python automation"
-      ]
+      "name": "CEH Master v12",
+      "issuer": "EC-Council",
+      "status": "Completed",
+      "highlight": true,
+      "note": "This is a significant achievement - emphasize it!"
     },
-    {"name": "CompTIA Security+", "status": "Pursuing"}
+    {
+      "name": "CEH Practical v12",
+      "issuer": "EC-Council",
+      "status": "Completed",
+      "highlight": true
+    },
+    {
+      "name": "CEH v12",
+      "issuer": "EC-Council",
+      "status": "Completed"
+    },
+    {
+      "name": "Core Java & JDBC",
+      "issuer": "QSpider Training Institute",
+      "status": "Completed"
+    },
+    {
+      "name": "CompTIA Security+",
+      "issuer": "CompTIA",
+      "status": "In Progress"
+    }
   ],
+
+  "technical_skills": {
+    "proficient": {
+      "note": "Can demonstrate in interview",
+      "skills": ["Core Java", "JDBC", "SQL", "Git", "GitHub", "Kali Linux", "Burp Suite", "Vulnerability Assessment", "Penetration Testing"]
+    },
+    "familiar": {
+      "note": "Used in projects/coursework",
+      "skills": ["Python", "C++", "PHP", "MySQL", "PostgreSQL", "Postman", "OWASP methodologies", "Linux/Unix", "HTML", "CSS", "JavaScript"]
+    },
+    "learning": {
+      "note": "Currently studying - be honest about this!",
+      "skills": ["Spring Boot", "REST APIs", "JPA/Hibernate", "Docker", "AWS (EC2, S3, IAM)", "Kubernetes"]
+    },
+    "security_tools": ["Kali Linux", "Burp Suite", "Wireshark", "Nmap", "Metasploit (basic)"]
+  },
 
   "projects": [
     {
       "name": "FogSec Cloud Storage",
-      "tech": ["Java", "C++"],
-      "description": "Secure fault-tolerant cloud storage with AES encryption and regenerating codes. Incorporates software design patterns for enhanced functionality, with emphasis on algorithm design and reliable data handling.",
+      "tech": ["Java", "AES Encryption", "Regenerating Codes", "C++"],
+      "description": "Secure fault-tolerant cloud storage system with encryption and data recovery capabilities",
+      "type": "MSc Capstone Project",
       "github": "https://github.com/ghorpadeire/FogSec-Secure-Cloud-Storage-with-Regenerating-Codes"
     },
     {
-      "name": "Secure File Sharing App",
-      "tech": ["Spring Boot", "PostgreSQL", "Docker"],
-      "description": "Backend for encrypted file sharing with role-based auth, Dockerized and CI-ready; supports web applications and user interfaces, aligning with SDLC and programming best practices.",
+      "name": "Secure File Share",
+      "tech": ["Java", "Role-based Authentication"],
+      "description": "File sharing backend with access control and security features",
+      "type": "BTech Final Year Project",
       "github": "https://github.com/ghorpadeire/secure-file-share"
-    },
-    {
-      "name": "Custom Kali Linux ISO Build",
-      "tech": ["Linux", "Shell Scripting"],
-      "description": "Created a full-featured, bootable Kali Linux ISO with XFCE desktop, ZSH shell, Nerd Fonts, and pre-installed penetration testing tools, exploring innovative technology and practical implementation.",
-      "github": "https://github.com/ghorpadeire/"
-    },
-    {
-      "name": "Resume Optimizer",
-      "tech": ["Python", "OpenAI API", "LaTeX"],
-      "description": "Automated resume keyword optimizer with OpenAI API and LaTeX CV integration; focuses on documentation, developer workflows, and clean software design.",
-      "github": "https://github.com/ghorpadeire/resume-optimizer"
-    },
-    {
-      "name": "Secure Help Needy Platform",
-      "tech": ["PHP", "SQL"],
-      "description": "Donor-needy connector with secure login (bcrypt), CSRF protection, and basic UI/UX; practical web development with business and customer considerations with User Interfaces.",
-      "github": "https://github.com/ghorpadeire/SWDCA2_Secured_Version"
-    },
-    {
-      "name": "Handwritten Digit Recognizer",
-      "tech": ["Python", "Machine Learning"],
-      "description": "ML model for handwritten digit classification; highlights algorithm design and experimentation with datasets.",
-      "github": "https://github.com/ghorpadeire/Handwritten-digit-recognizer"
     },
     {
       "name": "SSL Labs Assessment Tool",
       "tech": ["Spring Boot", "Java", "SSL/TLS"],
-      "description": "Web application performing remote SSL/TLS assessment of HTTPS servers. Outputs certificate validity, negotiated protocol, and cipher suite.",
-      "github": "https://github.com/ghorpadeire/ssl-labs-tool",
-      "note": "Interview project for encryption services role"
+      "description": "Web application for remote SSL/TLS security assessment of HTTPS servers",
+      "type": "Academic Project",
+      "github": "https://github.com/ghorpadeire/ssl-labs-tool"
+    },
+    {
+      "name": "Secure Help Needy Platform",
+      "tech": ["PHP", "SQL", "bcrypt", "CSRF protection"],
+      "description": "Donor-needy connector with secure login and protection mechanisms",
+      "type": "Academic Project",
+      "github": "https://github.com/ghorpadeire/SWDCA2_Secured_Version"
+    },
+    {
+      "name": "Custom Kali Linux ISO Build",
+      "tech": ["Linux", "Shell Scripting"],
+      "description": "Full-featured bootable Kali Linux ISO with XFCE desktop and pre-installed penetration testing tools",
+      "type": "Personal Project",
+      "github": "https://github.com/ghorpadeire/"
+    },
+    {
+      "name": "Handwritten Digit Recognizer",
+      "tech": ["Python", "Machine Learning"],
+      "description": "ML model for handwritten digit classification",
+      "type": "Academic Project",
+      "github": "https://github.com/ghorpadeire/Handwritten-digit-recognizer"
     }
   ],
 
-  "strengths": [
-    "Strong understanding of cybersecurity principles and software development (Programming Languages and Front End Frameworks)",
-    "Proficient in custom Linux environments and automation workflows; mindful of architecture, documentation, and code reviews",
-    "Problem solving and analytical thinker with a strategic mindset for growth and innovation",
-    "Effective communicator focused on teamwork, customers, and designers",
-    "Eager to learn and adapt in fast-paced, high-pressure IT environments"
+  "current_employment": {
+    "title": "Retail Associate",
+    "company": "Tesco",
+    "location": "Dublin, Ireland",
+    "period": "2024 - Present",
+    "include_in_cv": true,
+    "reason": "Shows work ethic, reliability, customer service skills, and ability to work in fast-paced environment",
+    "duties": [
+      "Deliver excellent customer service and resolve queries efficiently",
+      "Manage inventory and maintain organized stock systems",
+      "Handle cash transactions and POS operations accurately",
+      "Collaborate effectively in fast-paced team environment"
+    ]
+  },
+
+  "target_roles": [
+    "Graduate Developer Program",
+    "Junior Java Developer",
+    "Entry-level Software Developer",
+    "IT Support Engineer",
+    "IT Helpdesk Analyst",
+    "SOC Analyst (Entry-level)",
+    "Cybersecurity Analyst (Entry-level)",
+    "Technical Support Engineer"
+  ],
+
+  "soft_skills": [
+    "Strong problem-solving and analytical thinking",
+    "Effective communication (customer-facing experience at Tesco)",
+    "Self-motivated learner (continuous upskilling, achieved CEH Master)",
+    "Team collaboration and reliability",
+    "Adaptable to fast-paced environments",
+    "Detail-oriented approach to security and quality"
+  ],
+
+  "languages": [
+    {"language": "English", "level": "Fluent"},
+    {"language": "Hindi", "level": "Native"},
+    {"language": "Marathi", "level": "Native"}
   ]
 }
