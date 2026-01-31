@@ -86,6 +86,11 @@ public class CvGenerationService {
     private final ObjectMapper objectMapper;
 
     /**
+     * Service for logging to Google Sheets.
+     */
+    private final GoogleSheetsService googleSheetsService;
+
+    /**
      * Constructor with dependency injection.
      */
     public CvGenerationService(
@@ -95,7 +100,8 @@ public class CvGenerationService {
             CacheService cacheService,
             PromptBuilder promptBuilder,
             GeneratedCvRepository repository,
-            ObjectMapper objectMapper) {
+            ObjectMapper objectMapper,
+            GoogleSheetsService googleSheetsService) {
         this.claudeApiService = claudeApiService;
         this.latexCompilerService = latexCompilerService;
         this.candidateDataService = candidateDataService;
@@ -103,6 +109,7 @@ public class CvGenerationService {
         this.promptBuilder = promptBuilder;
         this.repository = repository;
         this.objectMapper = objectMapper;
+        this.googleSheetsService = googleSheetsService;
     }
 
     /**
@@ -204,6 +211,17 @@ public class CvGenerationService {
 
             // Step 5: Update database with results
             updateWithSuccess(jobId, response, pdfBytes, claudeTime, latexTime);
+
+            // Step 6: Log to Google Sheets (async, non-blocking)
+            try {
+                String coachBriefText = response.getCoachBrief() != null ?
+                        objectMapper.writeValueAsString(response.getCoachBrief()) : "";
+                int matchScore = response.getMatchScore() != null ?
+                        response.getMatchScore().getKeywordCoveragePct() : 0;
+                googleSheetsService.logGeneration(companyName, jobDescription, "", coachBriefText, matchScore);
+            } catch (Exception e) {
+                log.warn("Failed to log to Google Sheets: {}", e.getMessage());
+            }
 
             long totalTime = System.currentTimeMillis() - startTime;
             log.info("CV generation completed for job {} in {}ms (Claude: {}ms, LaTeX: {}ms)",
