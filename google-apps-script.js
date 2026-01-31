@@ -19,12 +19,13 @@
  *    - Value: <paste the URL>
  *
  * This script will:
- * - Automatically create a Google Sheet named "CV Generation History"
+ * - Create a Google Sheet named "CV Generation History" in your specified folder
  * - Log each CV generation with: Date, Company, JD, Match Score, Coach Brief
  */
 
-// Sheet name
+// Configuration
 const SHEET_NAME = "CV Generation History";
+const FOLDER_ID = "1w1OVjXeIy0S8Za-W5DSxlrJuzZpCsepf"; // Your "Claude code Cv gen2" folder
 
 /**
  * Handles POST requests from the CV Generator app
@@ -70,11 +71,14 @@ function doGet(e) {
 }
 
 /**
- * Gets existing sheet or creates a new one with headers
+ * Gets existing sheet or creates a new one in the specified folder
  */
 function getOrCreateSheet() {
-  // Try to find existing spreadsheet
-  const files = DriveApp.getFilesByName(SHEET_NAME);
+  // Get the target folder
+  const folder = DriveApp.getFolderById(FOLDER_ID);
+
+  // Try to find existing spreadsheet in the folder
+  const files = folder.getFilesByName(SHEET_NAME);
 
   if (files.hasNext()) {
     const file = files.next();
@@ -84,6 +88,11 @@ function getOrCreateSheet() {
   // Create new spreadsheet
   const spreadsheet = SpreadsheetApp.create(SHEET_NAME);
   const sheet = spreadsheet.getActiveSheet();
+
+  // Move the spreadsheet to the target folder
+  const spreadsheetFile = DriveApp.getFileById(spreadsheet.getId());
+  folder.addFile(spreadsheetFile);
+  DriveApp.getRootFolder().removeFile(spreadsheetFile); // Remove from root
 
   // Add headers
   const headers = [
@@ -114,13 +123,14 @@ function getOrCreateSheet() {
   // Freeze header row
   sheet.setFrozenRows(1);
 
-  Logger.log("Created new sheet: " + spreadsheet.getUrl());
+  Logger.log("Created new sheet in folder: " + spreadsheet.getUrl());
 
   return sheet;
 }
 
 /**
  * Test function - run this to verify the script works
+ * Click "Run" button in Apps Script editor to test
  */
 function testLogging() {
   const testData = {
@@ -138,4 +148,14 @@ function testLogging() {
 
   const result = doPost(testData);
   Logger.log(result.getContent());
+  Logger.log("Check your folder for the new sheet!");
+}
+
+/**
+ * Run this function first to create the sheet manually
+ * This helps verify the folder access is working
+ */
+function createSheetManually() {
+  const sheet = getOrCreateSheet();
+  Logger.log("Sheet created/found at: " + sheet.getParent().getUrl());
 }
