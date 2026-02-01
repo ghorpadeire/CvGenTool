@@ -1,12 +1,16 @@
 /**
  * Google Apps Script for CV Generator History Logging
  *
- * Creates a clean, well-formatted spreadsheet for tracking CV generations
+ * Features:
+ * - Saves PDFs to Google Drive folder
+ * - Logs generation history to Google Sheets
+ * - Clean, formatted spreadsheet with PDF links
  */
 
 // Configuration
 const SHEET_NAME = "CV Generation History";
 const FOLDER_ID = "1w1OVjXeIy0S8Za-W5DSxlrJuzZpCsepf"; // Your "Claude code Cv gen2" folder
+const PDF_SUBFOLDER_NAME = "Generated CVs"; // Subfolder for PDFs
 
 /**
  * Handles POST requests from the CV Generator app
@@ -15,6 +19,12 @@ function doPost(e) {
   try {
     const data = JSON.parse(e.postData.contents);
     const sheet = getOrCreateSheet();
+
+    // Save PDF to Drive if provided
+    let pdfUrl = "";
+    if (data.pdfBase64 && data.pdfFilename) {
+      pdfUrl = savePdfToDrive(data.pdfBase64, data.pdfFilename);
+    }
 
     // Parse coach brief to extract key info
     const coachData = parseCoachBrief(data.coachBrief);
@@ -33,6 +43,7 @@ function doPost(e) {
       data.company || "Unknown",
       cleanJD,
       data.matchScore || 0,
+      pdfUrl,  // PDF Link column
       coachData.skillGaps,
       coachData.sevenDays,
       coachData.fourteenDays,
@@ -44,7 +55,7 @@ function doPost(e) {
     formatDataRow(sheet, lastRow);
 
     return ContentService
-      .createTextOutput(JSON.stringify({ success: true }))
+      .createTextOutput(JSON.stringify({ success: true, pdfUrl: pdfUrl }))
       .setMimeType(ContentService.MimeType.JSON);
 
   } catch (error) {
@@ -52,6 +63,41 @@ function doPost(e) {
     return ContentService
       .createTextOutput(JSON.stringify({ success: false, error: error.toString() }))
       .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+/**
+ * Saves PDF to Google Drive and returns the shareable link
+ */
+function savePdfToDrive(base64Data, filename) {
+  try {
+    // Get or create PDF subfolder
+    const mainFolder = DriveApp.getFolderById(FOLDER_ID);
+    let pdfFolder;
+
+    const subfolders = mainFolder.getFoldersByName(PDF_SUBFOLDER_NAME);
+    if (subfolders.hasNext()) {
+      pdfFolder = subfolders.next();
+    } else {
+      pdfFolder = mainFolder.createFolder(PDF_SUBFOLDER_NAME);
+    }
+
+    // Decode base64 and create file
+    const decodedData = Utilities.base64Decode(base64Data);
+    const blob = Utilities.newBlob(decodedData, 'application/pdf', filename);
+
+    // Save to Drive
+    const file = pdfFolder.createFile(blob);
+
+    // Set sharing to "Anyone with link can view"
+    file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+
+    // Return the shareable link
+    return file.getUrl();
+
+  } catch (error) {
+    Logger.log("Error saving PDF: " + error.toString());
+    return "Error saving PDF";
   }
 }
 
@@ -122,7 +168,6 @@ function parseCoachBrief(coachBriefJson) {
 
   } catch (e) {
     Logger.log("Error parsing coach brief: " + e.toString());
-    // If JSON parsing fails, just show raw text (truncated)
     result.skillGaps = coachBriefJson.substring(0, 500);
   }
 
@@ -133,7 +178,7 @@ function parseCoachBrief(coachBriefJson) {
  * Formats a data row with proper styling
  */
 function formatDataRow(sheet, row) {
-  const range = sheet.getRange(row, 1, 1, 8);
+  const range = sheet.getRange(row, 1, 1, 9);
 
   // Wrap text for better readability
   range.setWrap(true);
@@ -149,6 +194,13 @@ function formatDataRow(sheet, row) {
     range.setBackground("#f8f9fa");
   } else {
     range.setBackground("#ffffff");
+  }
+
+  // Make PDF link clickable (column 5)
+  const pdfCell = sheet.getRange(row, 5);
+  const pdfUrl = pdfCell.getValue();
+  if (pdfUrl && pdfUrl.startsWith("http")) {
+    pdfCell.setFontColor("#1a73e8");
   }
 }
 
@@ -179,9 +231,10 @@ function getOrCreateSheet() {
     "Company",
     "Job Description",
     "Match %",
+    "PDF Link",
     "Skill Gaps",
-    "7-Day Learning Plan",
-    "14-Day Learning Plan",
+    "7-Day Plan",
+    "14-Day Plan",
     "Interview Questions"
   ];
 
@@ -198,12 +251,13 @@ function getOrCreateSheet() {
   // Set column widths for readability
   sheet.setColumnWidth(1, 130);   // Date
   sheet.setColumnWidth(2, 120);   // Company
-  sheet.setColumnWidth(3, 250);   // Job Description
+  sheet.setColumnWidth(3, 200);   // Job Description
   sheet.setColumnWidth(4, 70);    // Match %
-  sheet.setColumnWidth(5, 250);   // Skill Gaps
-  sheet.setColumnWidth(6, 250);   // 7-Day Plan
-  sheet.setColumnWidth(7, 250);   // 14-Day Plan
-  sheet.setColumnWidth(8, 300);   // Interview Questions
+  sheet.setColumnWidth(5, 150);   // PDF Link
+  sheet.setColumnWidth(6, 200);   // Skill Gaps
+  sheet.setColumnWidth(7, 200);   // 7-Day Plan
+  sheet.setColumnWidth(8, 200);   // 14-Day Plan
+  sheet.setColumnWidth(9, 250);   // Interview Questions
 
   // Freeze header row
   sheet.setFrozenRows(1);
@@ -225,32 +279,34 @@ function testLogging() {
       contents: JSON.stringify({
         date: new Date().toISOString(),
         company: "Google",
-        jobDescription: "Senior Java Developer - Dublin. Requirements: 5+ years Java, Spring Boot, Microservices, Cloud experience preferred.",
+        jobDescription: "Senior Java Developer - Dublin. Requirements: 5+ years Java, Spring Boot, Microservices.",
         matchScore: 78,
+        pdfBase64: "", // Empty for test
+        pdfFilename: "TestCV.pdf",
         coachBrief: JSON.stringify({
           skill_gaps: [
-            "5+ years commercial experience (you have project experience)",
-            "Microservices architecture hands-on",
+            "5+ years commercial experience",
+            "Microservices architecture",
             "Cloud certifications"
           ],
           learning_roadmap: {
             "7_days": [
-              "Complete Spring Boot REST API tutorial",
-              "Build a microservice demo project",
-              "Review system design basics"
+              "Complete Spring Boot tutorial",
+              "Build microservice demo",
+              "Review system design"
             ],
             "14_days": [
-              "Deploy project to AWS",
-              "Add Docker containerization",
-              "Practice coding interviews"
+              "Deploy to AWS",
+              "Add Docker",
+              "Practice interviews"
             ]
           },
           interview_questions: [
-            "Explain dependency injection in Spring",
-            "How would you design a URL shortener?",
-            "What is your experience with CI/CD?",
-            "Describe a challenging bug you fixed",
-            "How do you ensure code quality?"
+            "Explain dependency injection",
+            "Design a URL shortener",
+            "CI/CD experience?",
+            "Challenging bug you fixed",
+            "Code quality practices"
           ]
         })
       })
@@ -267,6 +323,14 @@ function testLogging() {
 function createSheetManually() {
   const sheet = getOrCreateSheet();
   Logger.log("Sheet URL: " + sheet.getParent().getUrl());
+
+  // Also create PDF subfolder
+  const mainFolder = DriveApp.getFolderById(FOLDER_ID);
+  const subfolders = mainFolder.getFoldersByName(PDF_SUBFOLDER_NAME);
+  if (!subfolders.hasNext()) {
+    mainFolder.createFolder(PDF_SUBFOLDER_NAME);
+    Logger.log("Created PDF subfolder: " + PDF_SUBFOLDER_NAME);
+  }
 }
 
 /**
@@ -281,9 +345,10 @@ function reformatExistingSheet() {
     "Company",
     "Job Description",
     "Match %",
+    "PDF Link",
     "Skill Gaps",
-    "7-Day Learning Plan",
-    "14-Day Learning Plan",
+    "7-Day Plan",
+    "14-Day Plan",
     "Interview Questions"
   ];
 
@@ -299,17 +364,18 @@ function reformatExistingSheet() {
   // Set column widths
   sheet.setColumnWidth(1, 130);
   sheet.setColumnWidth(2, 120);
-  sheet.setColumnWidth(3, 250);
+  sheet.setColumnWidth(3, 200);
   sheet.setColumnWidth(4, 70);
-  sheet.setColumnWidth(5, 250);
-  sheet.setColumnWidth(6, 250);
-  sheet.setColumnWidth(7, 250);
-  sheet.setColumnWidth(8, 300);
+  sheet.setColumnWidth(5, 150);
+  sheet.setColumnWidth(6, 200);
+  sheet.setColumnWidth(7, 200);
+  sheet.setColumnWidth(8, 200);
+  sheet.setColumnWidth(9, 250);
 
   // Format all data rows
   const lastRow = sheet.getLastRow();
   if (lastRow > 1) {
-    const dataRange = sheet.getRange(2, 1, lastRow - 1, 8);
+    const dataRange = sheet.getRange(2, 1, lastRow - 1, 9);
     dataRange.setWrap(true);
     dataRange.setVerticalAlignment("top");
   }

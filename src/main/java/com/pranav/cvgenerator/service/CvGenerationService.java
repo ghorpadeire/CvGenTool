@@ -212,13 +212,21 @@ public class CvGenerationService {
             // Step 5: Update database with results
             updateWithSuccess(jobId, response, pdfBytes, claudeTime, latexTime);
 
-            // Step 6: Log to Google Sheets (async, non-blocking)
+            // Step 6: Log to Google Sheets with PDF upload (async, non-blocking)
             try {
                 String coachBriefText = response.getCoachBrief() != null ?
                         objectMapper.writeValueAsString(response.getCoachBrief()) : "";
                 int matchScore = response.getMatchScore() != null ?
                         response.getMatchScore().getKeywordCoveragePct() : 0;
-                googleSheetsService.logGeneration(companyName, jobDescription, "", coachBriefText, matchScore);
+                String pdfFilename = generatePdfFilename(companyName);
+                googleSheetsService.logGenerationWithPdf(
+                        companyName,
+                        jobDescription,
+                        pdfBytes,
+                        pdfFilename,
+                        coachBriefText,
+                        matchScore
+                );
             } catch (Exception e) {
                 log.warn("Failed to log to Google Sheets: {}", e.getMessage());
             }
