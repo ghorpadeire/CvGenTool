@@ -10,7 +10,7 @@
     "medium": "https://pranav-ire.medium.com/"
   },
 
-  "summary": "Fresh MSc Cybersecurity graduate (NCI Dublin, 2:1) with CEH Master certification and BTech in Computer Engineering. Trained in Core Java and JDBC with hands-on project experience in secure systems development. Currently expanding skills in Spring Boot and REST APIs. 24 GitHub repositories demonstrating coding ability. Authorized to work in Ireland (Stamp 1G visa - eligible for Critical Skills Employment Permit).",
+  "summary": "Fresh MSc Cybersecurity graduate (NCI Dublin, 2:1) with CEH Master certification and BTech in Computer Engineering. Open source contributor to TheAlgorithms/Java (59K+ stars). Completed 8-week DevOps intensive program with hands-on CI/CD, Docker, and AWS projects. Trained in Core Java and JDBC with project experience in secure systems and SSL/TLS analysis. 24 GitHub repositories demonstrating coding ability. Authorized to work in Ireland (Stamp 1G visa - eligible for Critical Skills Employment Permit).",
 
   "experience_level": "FRESH_GRADUATE",
   "visa_status": "Stamp 1G (Work Authorized, eligible for Critical Skills Employment Permit)",
@@ -36,6 +36,86 @@
     }
   ],
 
+  "open_source_contributions": [
+    {
+      "repository": "TheAlgorithms/Java",
+      "stars": "59,000+",
+      "contribution": "Enhanced BinarySearch.java with comprehensive documentation",
+      "pr_number": "7245",
+      "pr_link": "https://github.com/TheAlgorithms/Java/pull/7245",
+      "status": "Approved - All CI checks passed",
+      "date": "January 2026",
+      "details": [
+        "Added detailed JavaDoc with @param, @return, @throws tags",
+        "Included step-by-step algorithm walkthrough with examples",
+        "Documented time and space complexity (O(log n) / O(1))",
+        "Explained edge cases and overflow prevention techniques",
+        "Addressed maintainer feedback and passed all automated code quality checks"
+      ],
+      "skills_demonstrated": ["Java", "Technical Writing", "Git Workflow", "Open Source Collaboration", "Code Review Process"]
+    }
+  ],
+
+  "devops_program": {
+    "name": "8-Week DevOps Intensive Program",
+    "period": "November 2024 - January 2025",
+    "curriculum": [
+      {"week": "1-2", "topic": "CI/CD Pipeline", "tools": ["GitHub Actions", "Docker", "AWS"]},
+      {"week": "3-4", "topic": "Infrastructure as Code", "tools": ["Terraform", "AWS"]},
+      {"week": "5-6", "topic": "Kubernetes Deployment", "tools": ["Kubernetes", "Docker"]},
+      {"week": "7-8", "topic": "Interview Prep & Portfolio Polish", "tools": ["Documentation", "GitHub"]}
+    ],
+    "projects_completed": [
+      {
+        "name": "Flask CI/CD Pipeline",
+        "tech": ["Python", "Flask", "GitHub Actions", "Docker", "AWS"],
+        "description": "Automated testing and deployment pipeline with containerization",
+        "github": "https://github.com/ghorpadeire/flask-cicd-pipeline"
+      },
+      {
+        "name": "Terraform AWS Infrastructure",
+        "tech": ["Terraform", "AWS", "EC2", "S3", "VPC"],
+        "description": "Infrastructure as Code project for cloud resource provisioning"
+      },
+      {
+        "name": "Kubernetes Deployment",
+        "tech": ["Kubernetes", "Docker", "YAML"],
+        "description": "Container orchestration basics with deployment configurations"
+      }
+    ]
+  },
+
+  "technical_writing": {
+    "medium_articles": [
+      {
+        "title": "Day 1: Learning DevOps in November's Hiring Freeze",
+        "platform": "Medium",
+        "date": "November 2024",
+        "link": "https://pranav-ire.medium.com/",
+        "topic": "DevOps learning journey, motivation during hiring freeze"
+      }
+    ],
+    "linkedin_posts": [
+      {
+        "topic": "Day 1 DevOps Journey Launch",
+        "theme": "November Building Season",
+        "engagement": "Documented 8-week learning journey"
+      },
+      {
+        "topic": "Open Source Contribution Announcement",
+        "theme": "First PR to TheAlgorithms/Java",
+        "engagement": "Shared learning and achievement"
+      }
+    ]
+  },
+
+  "current_learning": {
+    "books": ["Bulletproof SSL and TLS - Ivan Ristić"],
+    "courses": ["Spring Boot course (ongoing)"],
+    "framework": "Transitioning from T-shaped to M-shaped skill development",
+    "three_pillars": ["Backend Development (Java/Spring Boot)", "DevOps (CI/CD, Docker, AWS)", "Cybersecurity (CEH, SSL/TLS)"]
+  },
+
   "experience": [
     {
       "title": "Retail Associate",
@@ -46,51 +126,52 @@
         "Deliver excellent customer service and resolve queries efficiently in high-volume retail environment",
         "Manage inventory and maintain organized stock systems with attention to detail",
         "Handle cash transactions and POS operations accurately demonstrating reliability",
-        "Collaborate effectively with team members in fast-paced environment"
+        "Collaborate effectively with team members in fast-paced environment",
+        "Balance rotating shifts with intensive technical upskilling schedule"
       ],
-      "note": "Current employment demonstrating work ethic, reliability, and customer service skills"
+      "note": "Current employment demonstrating work ethic, reliability, time management, and customer service skills"
     }
   ],
 
   "skills": {
     "languages": {
       "proficient": ["Core Java", "SQL"],
-      "basics": ["Python", "C++", "PHP"],
+      "familiar": ["Python", "C++", "PHP"],
       "learning": ["TypeScript"]
-    },
-    "frontend": {
-      "basics": ["HTML", "CSS", "JavaScript"],
-      "note": "Familiar with web fundamentals"
     },
     "backend": {
       "proficient": ["JDBC"],
-      "learning": ["Spring Boot", "REST APIs", "JPA/Hibernate"],
-      "note": "Currently taking Spring Boot course"
+      "familiar": ["Spring Boot", "REST APIs"],
+      "learning": ["JPA/Hibernate"],
+      "note": "Built SSL/TLS Assessment Tool with Spring Boot"
     },
     "databases": {
       "proficient": ["MySQL", "PostgreSQL"],
-      "basics": ["SQL queries, joins"]
+      "skills": ["SQL queries", "joins", "database design basics"]
     },
-    "cicd": {
-      "basics": ["Git", "GitHub"],
-      "learning": ["GitHub Actions", "Docker"]
+    "devops": {
+      "familiar": ["Git", "GitHub", "Docker", "GitHub Actions CI/CD"],
+      "learning": ["Terraform", "Kubernetes", "AWS (EC2, S3, IAM)"],
+      "note": "Completed 8-week DevOps intensive with hands-on projects"
     },
     "testing": {
-      "basics": ["Postman", "JUnit"],
+      "familiar": ["Postman", "JUnit"],
       "learning": ["Mockito"]
     },
-    "cloud_ops": {
-      "learning": ["AWS (EC2, S3, IAM)", "Docker", "Kubernetes"],
-      "basics": ["Linux"],
-      "note": "Conceptual knowledge, currently learning"
+    "security_tools": {
+      "proficient": ["Kali Linux", "Burp Suite", "Wireshark", "Nmap"],
+      "familiar": ["Metasploit", "OWASP ZAP"],
+      "concepts": ["SSL/TLS Analysis", "Certificate Validation"]
     },
-    "security_tools": ["Kali Linux", "Burp Suite", "Wireshark", "Nmap", "Metasploit (basic)"],
-    "other_tools": ["Git", "VS Code", "Postman"],
-    "practices": ["Vulnerability Assessment", "Penetration Testing", "Secure Coding", "OWASP methodologies"]
+    "practices": {
+      "proficient": ["Vulnerability Assessment", "Penetration Testing", "Secure Coding", "Technical Documentation"],
+      "familiar": ["OWASP methodologies", "Git Workflow", "Code Review"]
+    },
+    "other_tools": ["VS Code", "Postman", "Linux CLI"]
   },
 
   "certifications": [
-    {"name": "CEH Master v12", "issuer": "EC-Council", "status": "Completed"},
+    {"name": "CEH Master v12", "issuer": "EC-Council", "status": "Completed", "highlight": true},
     {"name": "CEH Practical v12", "issuer": "EC-Council", "status": "Completed"},
     {"name": "CEH v12", "issuer": "EC-Council", "status": "Completed"},
     {"name": "Core Java & JDBC", "issuer": "QSpider Training Institute", "status": "Completed"},
@@ -102,57 +183,82 @@
       "name": "FogSec Cloud Storage",
       "tech": ["Java", "AES Encryption", "Regenerating Codes", "C++"],
       "description": "Secure fault-tolerant cloud storage system with encryption and data recovery capabilities (MSc Thesis Project)",
-      "github": "https://github.com/ghorpadeire/FogSec-Secure-Cloud-Storage-with-Regenerating-Codes"
+      "github": "https://github.com/ghorpadeire/FogSec-Secure-Cloud-Storage-with-Regenerating-Codes",
+      "type": "Academic - MSc Capstone"
+    },
+    {
+      "name": "SSL/TLS Assessment Tool",
+      "tech": ["Spring Boot", "Java", "SSL Socket", "Thymeleaf", "H2 Database"],
+      "description": "Web application for remote SSL/TLS security assessment of HTTPS servers with certificate validation, protocol detection, and cipher suite analysis",
+      "github": "https://github.com/ghorpadeire/ssl-labs-tool",
+      "type": "Personal Project",
+      "features": ["Hostname validation", "TLS handshake analysis", "Certificate expiry check", "MVC architecture"]
+    },
+    {
+      "name": "Flask CI/CD Pipeline",
+      "tech": ["Python", "Flask", "GitHub Actions", "Docker", "AWS"],
+      "description": "Complete CI/CD pipeline with automated testing, Docker containerization, and AWS deployment",
+      "github": "https://github.com/ghorpadeire/flask-cicd-pipeline",
+      "type": "DevOps Program Project"
     },
     {
       "name": "Secure File Share",
       "tech": ["Java", "Role-based Authentication"],
       "description": "File sharing backend with access control and security features (Final Year Project)",
-      "github": "https://github.com/ghorpadeire/secure-file-share"
-    },
-    {
-      "name": "SSL Labs Assessment Tool",
-      "tech": ["Spring Boot", "Java", "SSL/TLS"],
-      "description": "Web application for remote SSL/TLS security assessment of HTTPS servers",
-      "github": "https://github.com/ghorpadeire/ssl-labs-tool"
+      "github": "https://github.com/ghorpadeire/secure-file-share",
+      "type": "Academic - BTech"
     },
     {
       "name": "Secure Help Needy Platform",
-      "tech": ["PHP", "SQL", "bcrypt"],
+      "tech": ["PHP", "SQL", "bcrypt", "CSRF Protection"],
       "description": "Donor-needy connector with secure login (bcrypt) and CSRF protection",
-      "github": "https://github.com/ghorpadeire/SWDCA2_Secured_Version"
+      "github": "https://github.com/ghorpadeire/SWDCA2_Secured_Version",
+      "type": "Academic Project"
     },
     {
       "name": "Custom Kali Linux ISO Build",
-      "tech": ["Linux", "Shell Scripting"],
+      "tech": ["Linux", "Shell Scripting", "XFCE"],
       "description": "Full-featured bootable Kali Linux ISO with XFCE desktop and pre-installed penetration testing tools",
-      "github": "https://github.com/ghorpadeire/"
+      "github": "https://github.com/ghorpadeire/",
+      "type": "Personal Project"
     },
     {
       "name": "Handwritten Digit Recognizer",
-      "tech": ["Python", "Machine Learning"],
+      "tech": ["Python", "Machine Learning", "Neural Networks"],
       "description": "ML model for handwritten digit classification using neural networks",
-      "github": "https://github.com/ghorpadeire/Handwritten-digit-recognizer"
+      "github": "https://github.com/ghorpadeire/Handwritten-digit-recognizer",
+      "type": "Academic Project"
     }
   ],
 
   "strengths": [
     "Strong problem-solving and analytical thinking",
-    "Effective communication skills (customer-facing experience at Tesco)",
-    "Self-motivated learner (continuous upskilling, achieved CEH Master certification)",
+    "Effective communication skills (customer-facing experience at Tesco, technical writing on Medium)",
+    "Self-motivated learner (CEH Master certification, 8-week DevOps program, continuous upskilling)",
+    "Open source contributor (TheAlgorithms/Java - 59K+ stars)",
     "Team collaboration and reliability",
     "Adaptable to fast-paced environments",
-    "Detail-oriented approach to security and quality"
+    "Detail-oriented approach to security and quality",
+    "Public learning mindset (Medium articles, LinkedIn documentation)"
   ],
 
   "target_roles": [
     "Graduate Developer Program",
     "Junior Java Developer",
-    "Entry-level Software Developer",
+    "Junior Backend Developer",
+    "Entry-level DevOps Engineer",
     "IT Support Engineer",
     "SOC Analyst (Entry-level)",
-    "Cybersecurity Analyst (Entry-level)"
+    "Cybersecurity Analyst (Entry-level)",
+    "Technical Support Engineer"
   ],
 
-  "note_to_ai": "IMPORTANT: This candidate is a FRESH GRADUATE with NO commercial tech experience. The only work experience is retail at Tesco. Do NOT invent fake tech jobs. Emphasize: Education, CEH Master certification, GitHub projects (24 repos), and Stamp 1G visa status."
+  "interview_talking_points": {
+    "open_source": "I recently contributed to TheAlgorithms/Java, one of GitHub's most popular algorithm repositories with over 59,000 stars. I enhanced the BinarySearch algorithm documentation by adding comprehensive JavaDoc, complexity analysis, and practical examples. The contribution went through code review, addressed formatting feedback, and passed all CI/CD checks.",
+    "devops_program": "I completed an 8-week DevOps intensive program where I built three hands-on projects: a Flask CI/CD pipeline with GitHub Actions and Docker, Terraform infrastructure for AWS, and Kubernetes deployment configurations.",
+    "ssl_project": "I built an SSL/TLS assessment tool using Spring Boot that connects to HTTPS servers, performs TLS handshakes, validates certificates, and displays security information like protocol version and cipher suite.",
+    "learning_approach": "I follow a structured learning approach, currently transitioning from T-shaped to M-shaped skill development with three pillars: Backend Development, DevOps, and Cybersecurity."
+  },
+
+  "note_to_ai": "IMPORTANT: This candidate now has SIGNIFICANT differentiators: 1) Open source contribution to 59K+ star repo, 2) Completed DevOps program with real projects, 3) Technical writing portfolio on Medium, 4) CEH Master certification. Emphasize these achievements along with Stamp 1G visa status."
 }
