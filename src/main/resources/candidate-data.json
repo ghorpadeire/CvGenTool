@@ -101,13 +101,13 @@
     {
       "name": "FogSec Cloud Storage",
       "tech": ["Java", "AES Encryption", "Regenerating Codes", "C++"],
-      "description": "Secure fault-tolerant cloud storage system with encryption and data recovery capabilities (MSc Capstone)",
+      "description": "Secure fault-tolerant cloud storage system with encryption and data recovery capabilities (MSc Thesis Project)",
       "github": "https://github.com/ghorpadeire/FogSec-Secure-Cloud-Storage-with-Regenerating-Codes"
     },
     {
       "name": "Secure File Share",
       "tech": ["Java", "Role-based Authentication"],
-      "description": "File sharing backend with access control and security features (BTech Final Year Project)",
+      "description": "File sharing backend with access control and security features (Final Year Project)",
       "github": "https://github.com/ghorpadeire/secure-file-share"
     },
     {
