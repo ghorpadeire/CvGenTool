@@ -94,9 +94,9 @@ public class HomeController {
         // Add candidate name for display
         model.addAttribute("candidateName", candidateDataService.getCandidateName());
 
-        // Add recent completed generations
+        // Add recent completed generations (show last 10 on home page)
         List<GeneratedCv> recentCvs = repository.findRecentByStatus(
-                GeneratedCv.GenerationStatus.COMPLETED, 5);
+                GeneratedCv.GenerationStatus.COMPLETED, 10);
         model.addAttribute("recentGenerations", recentCvs);
 
         // Check if Claude API is configured
