@@ -20,6 +20,7 @@ import com.pranav.cvgenerator.repository.GeneratedCvRepository;
 import com.pranav.cvgenerator.service.CandidateDataService;
 import com.pranav.cvgenerator.service.ClaudeApiService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -95,8 +96,8 @@ public class HomeController {
         model.addAttribute("candidateName", candidateDataService.getCandidateName());
 
         // Add recent completed generations (show last 10 on home page)
-        List<GeneratedCv> recentCvs = repository.findRecentByStatus(
-                GeneratedCv.GenerationStatus.COMPLETED, 10);
+        List<GeneratedCv> recentCvs = repository.findByStatusOrderByCreatedAtDesc(
+                GeneratedCv.GenerationStatus.COMPLETED, PageRequest.of(0, 10));
         model.addAttribute("recentGenerations", recentCvs);
 
         // Check if Claude API is configured

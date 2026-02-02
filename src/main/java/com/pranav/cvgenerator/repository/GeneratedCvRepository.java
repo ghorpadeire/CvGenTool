@@ -23,6 +23,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import org.springframework.data.domain.Pageable;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -94,17 +96,15 @@ public interface GeneratedCvRepository extends JpaRepository<GeneratedCv, UUID> 
     /**
      * Finds the most recent N completed CVs.
      *
-     * Uses JPQL (Java Persistence Query Language) for more complex query.
+     * Uses Spring Data JPA method naming with Pageable for limiting results.
      *
      * @param status Status to filter
-     * @param limit Maximum results to return
+     * @param pageable Pageable object to limit results
      * @return List of recent completed CVs
      */
-    @Query("SELECT cv FROM GeneratedCv cv WHERE cv.status = :status " +
-           "ORDER BY cv.createdAt DESC LIMIT :limit")
-    List<GeneratedCv> findRecentByStatus(
-            @Param("status") GeneratedCv.GenerationStatus status,
-            @Param("limit") int limit);
+    List<GeneratedCv> findByStatusOrderByCreatedAtDesc(
+            GeneratedCv.GenerationStatus status,
+            Pageable pageable);
 
     /**
      * Counts CVs with a specific status.
