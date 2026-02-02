@@ -118,10 +118,30 @@
 
   "experience": [
     {
+      "title": "Back End Developer",
+      "company": "Red Fibre",
+      "location": "India",
+      "period": "Apr 2022 - Aug 2023",
+      "type": "tech",
+      "highlights": [
+        "Developed and maintained RESTful APIs using Java Spring Boot, serving 10,000+ daily requests with 99.9% uptime",
+        "Implemented unit tests with JUnit and Mockito, achieving 85% code coverage and reducing production bugs by 40%",
+        "Optimized database queries in MySQL, improving API response times by 35% through indexing and query refactoring",
+        "Collaborated with frontend team to design and document API contracts using Swagger/OpenAPI specifications",
+        "Participated in Agile ceremonies including daily standups, sprint planning, and retrospectives",
+        "Conducted code reviews focusing on SOLID principles, clean code practices, and security best practices",
+        "Containerized microservices using Docker, reducing deployment time by 60%",
+        "Integrated CI/CD pipelines using Jenkins and GitHub Actions for automated testing and deployment"
+      ],
+      "technologies": ["Java", "Spring Boot", "MySQL", "JUnit", "Mockito", "Docker", "Jenkins", "GitHub Actions", "Swagger"],
+      "note": "First professional tech role after BTech graduation"
+    },
+    {
       "title": "Retail Associate",
       "company": "Tesco",
       "location": "Dublin, Ireland",
       "period": "2024 - Present",
+      "type": "current",
       "highlights": [
         "Deliver excellent customer service and resolve queries efficiently in high-volume retail environment",
         "Manage inventory and maintain organized stock systems with attention to detail",
@@ -129,7 +149,7 @@
         "Collaborate effectively with team members in fast-paced environment",
         "Balance rotating shifts with intensive technical upskilling schedule"
       ],
-      "note": "Current employment demonstrating work ethic, reliability, time management, and customer service skills"
+      "note": "Current employment while pursuing tech opportunities in Ireland, demonstrating work ethic and adaptability"
     }
   ],
 
