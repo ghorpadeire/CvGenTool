@@ -10,9 +10,9 @@
     "medium": "https://pranav-ire.medium.com/"
   },
 
-  "summary": "Fresh MSc Cybersecurity graduate (NCI Dublin, 2:1) with CEH Master certification and BTech in Computer Engineering. Open source contributor to TheAlgorithms/Java (59K+ stars). Completed 8-week DevOps intensive program with hands-on CI/CD, Docker, and AWS projects. Trained in Core Java and JDBC with project experience in secure systems and SSL/TLS analysis. 24 GitHub repositories demonstrating coding ability. Authorized to work in Ireland (Stamp 1G visa - eligible for Critical Skills Employment Permit).",
+  "summary": "Backend Developer with 1.5+ years of professional experience at Red Fibre building RESTful APIs with Java Spring Boot. MSc Cybersecurity (NCI Dublin, 2:1) with CEH Master certification. Prior cybersecurity internship at SecurePoint Solutions. Open source contributor to TheAlgorithms/Java (59K+ stars). Completed 8-week DevOps intensive program with hands-on CI/CD, Docker, and AWS projects. 24 GitHub repositories demonstrating coding ability. Authorized to work in Ireland (Stamp 1G visa - eligible for Critical Skills Employment Permit).",
 
-  "experience_level": "FRESH_GRADUATE",
+  "experience_level": "JUNIOR_MID_LEVEL",
   "visa_status": "Stamp 1G (Work Authorized, eligible for Critical Skills Employment Permit)",
   "github_repos": 24,
 
@@ -135,6 +135,23 @@
       ],
       "technologies": ["Java", "Spring Boot", "MySQL", "JUnit", "Mockito", "Docker", "Jenkins", "GitHub Actions", "Swagger"],
       "note": "First professional tech role after BTech graduation"
+    },
+    {
+      "title": "Cybersecurity Intern",
+      "company": "SecurePoint Solutions",
+      "location": "Pune, India",
+      "period": "Jan 2022 - Mar 2022",
+      "type": "internship",
+      "highlights": [
+        "Conducted vulnerability assessments on web applications using OWASP methodology and Burp Suite",
+        "Performed penetration testing on network infrastructure identifying 15+ security vulnerabilities",
+        "Documented security findings and remediation recommendations in detailed technical reports",
+        "Assisted senior analysts in security audits and compliance assessments",
+        "Gained hands-on experience with Kali Linux, Nmap, Metasploit, and Wireshark",
+        "Participated in security awareness training sessions for client employees"
+      ],
+      "technologies": ["Kali Linux", "Burp Suite", "Nmap", "Metasploit", "Wireshark", "OWASP ZAP"],
+      "note": "Cybersecurity internship during final year of BTech, before Red Fibre job"
     },
     {
       "title": "Retail Associate",
@@ -263,14 +280,14 @@
   ],
 
   "target_roles": [
-    "Graduate Developer Program",
-    "Junior Java Developer",
-    "Junior Backend Developer",
-    "Entry-level DevOps Engineer",
-    "IT Support Engineer",
-    "SOC Analyst (Entry-level)",
-    "Cybersecurity Analyst (Entry-level)",
-    "Technical Support Engineer"
+    "Junior/Mid-level Java Developer",
+    "Backend Developer",
+    "Software Engineer",
+    "DevOps Engineer",
+    "Security Engineer",
+    "SOC Analyst",
+    "Cybersecurity Analyst",
+    "Full Stack Developer"
   ],
 
   "interview_talking_points": {
@@ -280,5 +297,5 @@
     "learning_approach": "I follow a structured learning approach, currently transitioning from T-shaped to M-shaped skill development with three pillars: Backend Development, DevOps, and Cybersecurity."
   },
 
-  "note_to_ai": "IMPORTANT: This candidate now has SIGNIFICANT differentiators: 1) Open source contribution to 59K+ star repo, 2) Completed DevOps program with real projects, 3) Technical writing portfolio on Medium, 4) CEH Master certification. Emphasize these achievements along with Stamp 1G visa status."
+  "note_to_ai": "IMPORTANT: This candidate has 1.5+ YEARS PROFESSIONAL EXPERIENCE with key differentiators: 1) Backend Developer at Red Fibre (1.5 years) with Spring Boot, Docker, CI/CD, 2) Cybersecurity Intern at SecurePoint Solutions, 3) Open source contribution to 59K+ star repo, 4) CEH Master certification, 5) MSc Cybersecurity, 6) 8-week DevOps program. Position as JUNIOR/MID-LEVEL candidate, NOT fresh graduate. CV should be 2 PAGES to showcase all experience and projects."
 }

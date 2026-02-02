@@ -78,10 +78,10 @@ REAL PROJECTS (from GitHub and academics):
 8. Custom Kali Linux ISO Build - Linux, Shell scripting
 
 ═══════════════════════════════════════════════════════════════
-PROFESSIONAL EXPERIENCE
+PROFESSIONAL EXPERIENCE (1.5+ YEARS IN TECH)
 ═══════════════════════════════════════════════════════════════
 
-💼 BACK END DEVELOPER - Red Fibre, India (Apr 2022 - Aug 2023)
+💼 BACK END DEVELOPER - Red Fibre, India (Apr 2022 - Aug 2023) [1 year 5 months]
 Key Achievements:
 - Developed and maintained RESTful APIs using Java Spring Boot, serving 10,000+ daily requests with 99.9% uptime
 - Implemented unit tests with JUnit and Mockito, achieving 85% code coverage and reducing production bugs by 40%
@@ -94,6 +94,17 @@ Key Achievements:
 
 Technologies: Java, Spring Boot, MySQL, JUnit, Mockito, Docker, Jenkins, GitHub Actions, Swagger
 
+💼 CYBERSECURITY INTERN - SecurePoint Solutions, Pune, India (Jan 2022 - Mar 2022) [3 months]
+Key Achievements:
+- Conducted vulnerability assessments on web applications using OWASP methodology and Burp Suite
+- Performed penetration testing on network infrastructure identifying 15+ security vulnerabilities
+- Documented security findings and remediation recommendations in detailed technical reports
+- Assisted senior analysts in security audits and compliance assessments
+- Gained hands-on experience with Kali Linux, Nmap, Metasploit, and Wireshark
+- Participated in security awareness training sessions for client employees
+
+Technologies: Kali Linux, Burp Suite, Nmap, Metasploit, Wireshark, OWASP ZAP
+
 💼 RETAIL ASSOCIATE - Tesco, Dublin (2024-Present)
 - Customer service, inventory management, cash handling, teamwork
 - Demonstrates: Work ethic, reliability, communication skills, adaptability to new environments
@@ -101,15 +112,17 @@ Technologies: Java, Spring Boot, MySQL, JUnit, Mockito, Docker, Jenkins, GitHub 
 ═══════════════════════════════════════════════════════════════
 
 IMPORTANT RULES:
-1. Include Red Fibre experience prominently - it's real professional tech experience
-2. Position as JUNIOR/MID-LEVEL candidate with 1.5 years experience
-3. Emphasize: Professional Experience, Education, Certifications (CEH Master), Projects
-4. Include open source contribution to TheAlgorithms/Java - significant achievement!
-5. Include DevOps program completion with specific projects
-6. Tesco job shows: reliability, work ethic, communication skills - include it
-7. Always mention: "Stamp 1G visa - authorized to work, eligible for Critical Skills Permit"
-8. Target roles: Junior/Mid Developer, Backend Developer, DevOps Engineer, Security Engineer
-9. CV should be 2 PAGES to include all experience and projects
+1. Include Red Fibre experience prominently - it's real professional tech experience (1.5 years)
+2. Include SecurePoint cybersecurity internship - shows security background
+3. Position as JUNIOR/MID-LEVEL candidate with 1.5+ years tech experience
+4. Emphasize: Professional Experience, Education, Certifications (CEH Master), Projects
+5. Include open source contribution to TheAlgorithms/Java - significant achievement!
+6. Include DevOps program completion with specific projects
+7. Include ALL 7 projects mentioned - they demonstrate diverse skills
+8. Tesco job shows: reliability, work ethic, communication skills - include it
+9. Always mention: "Stamp 1G visa - authorized to work, eligible for Critical Skills Permit"
+10. Target roles: Junior/Mid Developer, Backend Developer, DevOps Engineer, Security Engineer
+11. CV should be 2 PAGES to include all experience and projects
 
 ────────────────────────────────────────
 OUTPUT REQUIREMENTS
@@ -167,22 +180,22 @@ PROFILE SUMMARY TEMPLATES (WITH EXPERIENCE)
 ────────────────────────────────────────
 
 For Java/Backend Developer roles:
-"Backend Developer with 1.5 years of professional experience building RESTful APIs using Java Spring Boot at Red Fibre. Achieved 85% code coverage through JUnit testing and improved API response times by 35% via database optimization. MSc Cybersecurity (NCI Dublin) with CEH Master certification. Open source contributor to TheAlgorithms/Java (59K+ stars). Experienced with Docker, CI/CD pipelines, and Agile methodologies. Authorized to work in Ireland (Stamp 1G)."
+"Backend Developer with 1.5+ years of professional experience building RESTful APIs using Java Spring Boot at Red Fibre. Achieved 85% code coverage through JUnit testing and improved API response times by 35% via database optimization. Prior cybersecurity internship at SecurePoint Solutions. MSc Cybersecurity (NCI Dublin) with CEH Master certification. Open source contributor to TheAlgorithms/Java (59K+ stars). Authorized to work in Ireland (Stamp 1G)."
 
 For DevOps/Cloud roles:
-"Backend Developer with 1.5 years experience, specializing in containerization and CI/CD. At Red Fibre, reduced deployment time by 60% through Docker containerization and Jenkins/GitHub Actions pipelines. Completed 8-week DevOps intensive covering Terraform, Kubernetes, and AWS. MSc Cybersecurity with CEH Master certification bringing security-first mindset. Open source contributor. Authorized to work in Ireland (Stamp 1G)."
+"Backend Developer with 1.5+ years experience, specializing in containerization and CI/CD. At Red Fibre, reduced deployment time by 60% through Docker containerization and Jenkins/GitHub Actions pipelines. Completed 8-week DevOps intensive covering Terraform, Kubernetes, and AWS. MSc Cybersecurity with CEH Master certification bringing security-first mindset. Open source contributor. Authorized to work in Ireland (Stamp 1G)."
 
 For Cybersecurity/SOC roles:
-"CEH Master certified developer with MSc in Cybersecurity and 1.5 years backend experience at Red Fibre. Conducted code reviews focusing on security best practices and SOLID principles. Built SSL/TLS assessment tool demonstrating deep protocol understanding. Experienced in vulnerability assessment, penetration testing, and secure coding. Authorized to work in Ireland (Stamp 1G)."
+"CEH Master certified professional with MSc in Cybersecurity, 1.5+ years backend experience at Red Fibre, and cybersecurity internship at SecurePoint Solutions. Conducted vulnerability assessments using OWASP methodology and penetration testing identifying 15+ vulnerabilities. Built SSL/TLS assessment tool demonstrating deep protocol understanding. Proficient in Kali Linux, Burp Suite, and security best practices. Authorized to work in Ireland (Stamp 1G)."
 
 For Full Stack/General roles:
-"Backend Developer with 1.5 years professional experience building scalable APIs at Red Fibre (10,000+ daily requests, 99.9% uptime). Proficient in Java, Spring Boot, MySQL, Docker, and CI/CD. MSc Cybersecurity with CEH Master certification. Open source contributor to TheAlgorithms/Java. Strong foundation in testing (JUnit, Mockito) and Agile practices. Authorized to work in Ireland (Stamp 1G)."
+"Backend Developer with 1.5+ years professional experience building scalable APIs at Red Fibre (10,000+ daily requests, 99.9% uptime). Prior cybersecurity internship at SecurePoint. Proficient in Java, Spring Boot, MySQL, Docker, and CI/CD. MSc Cybersecurity with CEH Master certification. Open source contributor to TheAlgorithms/Java. Authorized to work in Ireland (Stamp 1G)."
 
 ────────────────────────────────────────
 SKILL LEVELS (FROM PROFESSIONAL EXPERIENCE)
 ────────────────────────────────────────
 
-PROFICIENT (used professionally at Red Fibre):
+PROFICIENT (used professionally at Red Fibre - 1.5 years):
 - Java, Spring Boot, REST APIs
 - MySQL, SQL, Database optimization
 - JUnit, Mockito, Unit Testing
@@ -192,16 +205,22 @@ PROFICIENT (used professionally at Red Fibre):
 - Swagger/OpenAPI
 - Agile/Scrum methodologies
 
-PROFICIENT (from certifications/education):
+PROFICIENT (used at SecurePoint internship + CEH certification):
 - Vulnerability Assessment, Penetration Testing
-- Kali Linux, Burp Suite, OWASP
+- Kali Linux, Burp Suite, Nmap, Wireshark
+- OWASP methodology, Security Audits
+- Technical Report Writing
+
+PROFICIENT (from certifications/education):
 - SSL/TLS Analysis, Security Best Practices
+- Network Security, Secure Coding
 
 FAMILIAR (used in projects):
 - Python, Flask (DevOps program)
 - Terraform, AWS (EC2, S3, IAM)
 - Kubernetes basics
 - PostgreSQL
+- Metasploit
 
 EXPOSURE:
 - Kubernetes orchestration
