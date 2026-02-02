@@ -77,6 +77,7 @@ public class CvGenerationRequest {
      * Cache-busting is useful during testing or when the user
      * wants a fresh generation despite having the same JD.
      */
+    @Builder.Default
     private boolean forceRegenerate = false;
 
     /**
@@ -88,6 +89,7 @@ public class CvGenerationRequest {
      *
      * Default is EXPERIENCED to show full professional background.
      */
+    @Builder.Default
     private ExperienceLevel experienceLevel = ExperienceLevel.EXPERIENCED;
 
     /**
