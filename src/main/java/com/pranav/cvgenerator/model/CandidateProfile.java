@@ -164,12 +164,12 @@ public class CandidateProfile {
         private SkillCategory cloudOps;
 
         @JsonProperty("security_tools")
-        private List<String> securityTools;
+        private SkillCategory securityTools;
+
+        private SkillCategory practices;
 
         @JsonProperty("other_tools")
         private List<String> otherTools;
-
-        private List<String> practices;
     }
 
     /**
@@ -181,11 +181,13 @@ public class CandidateProfile {
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class SkillCategory {
         private List<String> proficient;
+        private List<String> familiar;
         private List<String> basics;
         private List<String> learning;
         private List<String> exposure;
         private List<String> transferable;
         private List<String> frameworks;
+        private List<String> concepts;
         private List<String> other;
         private String note;
     }
