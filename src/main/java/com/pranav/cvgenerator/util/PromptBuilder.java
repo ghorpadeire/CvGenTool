@@ -116,12 +116,24 @@ public class PromptBuilder {
     }
 
     /**
-     * Builds the complete user message for Claude.
+     * Builds the complete user message for Claude (defaults to EXPERIENCED level).
+     *
+     * @param candidate The candidate profile
+     * @param jobDescription The job description text
+     * @return Formatted user message
+     */
+    public String buildUserMessage(CandidateProfile candidate, String jobDescription) {
+        return buildUserMessage(candidate, jobDescription, "EXPERIENCED");
+    }
+
+    /**
+     * Builds the complete user message for Claude with experience level selection.
      *
      * The message is structured in sections:
      * 1. CANDIDATE DATA - Full profile as JSON
      * 2. JOB DESCRIPTION - User's pasted JD
-     * 3. INSTRUCTIONS - What to generate
+     * 3. EXPERIENCE LEVEL - ENTRY_LEVEL or EXPERIENCED
+     * 4. INSTRUCTIONS - What to generate (varies by level)
      *
      * Interview Note:
      * Clear section markers help the LLM understand the different
@@ -130,9 +142,10 @@ public class PromptBuilder {
      *
      * @param candidate The candidate profile
      * @param jobDescription The job description text
+     * @param experienceLevel ENTRY_LEVEL or EXPERIENCED
      * @return Formatted user message
      */
-    public String buildUserMessage(CandidateProfile candidate, String jobDescription) {
+    public String buildUserMessage(CandidateProfile candidate, String jobDescription, String experienceLevel) {
         StringBuilder message = new StringBuilder();
 
         // Section 1: Candidate Data
@@ -145,9 +158,14 @@ public class PromptBuilder {
         message.append(jobDescription.trim());
         message.append("\n\n");
 
-        // Section 3: Instructions
+        // Section 3: Experience Level
+        message.append("---EXPERIENCE LEVEL---\n");
+        message.append(experienceLevel != null ? experienceLevel : "EXPERIENCED");
+        message.append("\n\n");
+
+        // Section 4: Instructions based on experience level
         message.append("---INSTRUCTIONS---\n");
-        message.append(buildInstructions());
+        message.append(buildInstructions(experienceLevel));
 
         return message.toString();
     }
@@ -169,36 +187,129 @@ public class PromptBuilder {
     }
 
     /**
-     * Builds the instruction section for the prompt.
-     *
-     * These instructions tell Claude specifically what to generate
-     * and in what format.
+     * Builds the instruction section for the prompt (defaults to EXPERIENCED).
      *
      * @return Instruction text
      */
     private String buildInstructions() {
+        return buildInstructions("EXPERIENCED");
+    }
+
+    /**
+     * Builds the instruction section for the prompt based on experience level.
+     *
+     * These instructions tell Claude specifically what to generate
+     * and in what format. Different instructions for entry vs experienced.
+     *
+     * @param experienceLevel ENTRY_LEVEL or EXPERIENCED
+     * @return Instruction text
+     */
+    private String buildInstructions(String experienceLevel) {
+        if ("ENTRY_LEVEL".equals(experienceLevel)) {
+            return buildEntryLevelInstructions();
+        } else {
+            return buildExperiencedInstructions();
+        }
+    }
+
+    /**
+     * Instructions for ENTRY_LEVEL CV generation.
+     * Fresh graduate style - 1 page, no tech experience shown.
+     */
+    private String buildEntryLevelInstructions() {
         return """
-            Generate a tailored CV for the candidate based on the job description above.
+            Generate a FRESH GRADUATE / ENTRY-LEVEL CV for the candidate.
+
+            CRITICAL - ENTRY LEVEL RULES:
+            1. DO NOT include Red Fibre backend developer experience
+            2. DO NOT include SecurePoint cybersecurity internship
+            3. ONLY include current Tesco employment to show work ethic
+            4. Position as a FRESH GRADUATE with strong academic background
+            5. Emphasize: Education (MSc + BTech), Certifications (CEH Master), Projects, Skills
+            6. The CV MUST be 1 PAGE ONLY
+
+            CV STRUCTURE FOR ENTRY LEVEL:
+            1. Header (Name, Contact, LinkedIn, GitHub, Medium)
+            2. Professional Profile (Fresh graduate with MSc Cybersecurity, CEH Master, strong projects)
+            3. Education (MSc Cybersecurity - NCI Dublin, BTech Computer Engineering)
+            4. Certifications (CEH Master v12 is the highlight!)
+            5. Technical Skills
+            6. Open Source Contribution (TheAlgorithms/Java - 59K+ stars)
+            7. Key Projects (5-6 most relevant projects)
+            8. DevOps Program (8-week intensive)
+            9. Current Employment (Tesco - shows work ethic, reliability)
+            10. Core Strengths
 
             REQUIREMENTS:
             1. Use the EXACT LaTeX template structure from the system prompt
-            2. PRESERVE ALL candidate data - do not omit experiences, projects, or certifications
-            3. Tailor the Professional Profile/Summary to match the JD keywords
-            4. Reorder sections based on the detected recruiter model's priorities
-            5. Include ALL bullet points from experience, adjusting language to match JD
-            6. Select the most relevant 4-5 projects based on JD requirements
-            7. Properly escape LaTeX special characters: #, $, %, &, _, {, }, ~, ^, \\
-            8. Maintain the charter font and twocolentry/onecolentry formatting
+            2. Tailor the Professional Profile to match JD keywords as a FRESH GRADUATE
+            3. Select 5-6 most relevant projects based on JD requirements
+            4. Properly escape LaTeX special characters: #, $, %, &, _, {, }, ~, ^, \\
+            5. Maintain the charter font and twocolentry/onecolentry formatting
 
             OUTPUT FORMAT:
             Return a valid JSON object with the structure defined in the system prompt.
             The latex_cv field must contain complete, compilable LaTeX code.
 
             IMPORTANT:
-            - The CV must fit on ONE PAGE
+            - The CV MUST fit on ONE PAGE
             - Use the candidate's ACTUAL data - do not invent information
-            - Every technical claim must be supported by the candidate's experience or projects
-            - If including the Tesco retail role, only if soft skills are relevant to JD
+            - Position as fresh MSc graduate seeking entry-level opportunity
+            - Emphasize: Education, CEH Master certification, Projects, Open Source contribution
+            - Include Tesco to show work ethic and communication skills
+            - Always mention: Stamp 1G visa - authorized to work in Ireland
+            """;
+    }
+
+    /**
+     * Instructions for EXPERIENCED CV generation.
+     * Professional with 1.5+ years experience - 2 pages.
+     */
+    private String buildExperiencedInstructions() {
+        return """
+            Generate an EXPERIENCED PROFESSIONAL CV for the candidate.
+
+            CRITICAL - EXPERIENCED LEVEL RULES:
+            1. MUST include Red Fibre Backend Developer experience (Apr 2022 - Aug 2023) - 1.5 years
+            2. MUST include SecurePoint Solutions Cybersecurity Internship (Jan 2022 - Mar 2022)
+            3. Include Tesco current employment to show adaptability
+            4. Position as JUNIOR/MID-LEVEL DEVELOPER with 1.5+ years tech experience
+            5. The CV should be 2 PAGES to showcase full professional background
+
+            CV STRUCTURE FOR EXPERIENCED:
+            1. Header (Name, Contact, LinkedIn, GitHub, Medium)
+            2. Professional Profile (Backend Developer with 1.5+ years at Red Fibre, SecurePoint intern)
+            3. Professional Experience:
+               - Red Fibre Backend Developer (DETAILED - all 8 bullet points with metrics)
+               - SecurePoint Cybersecurity Intern (all 6 bullet points)
+               - Tesco Retail Associate (brief - shows adaptability)
+            4. Education (MSc Cybersecurity - NCI Dublin, BTech Computer Engineering)
+            5. Certifications (CEH Master v12 is the highlight!)
+            6. Technical Skills (proficient from work experience)
+            7. Open Source Contribution (TheAlgorithms/Java - 59K+ stars)
+            8. Key Projects (6-7 most relevant projects)
+            9. DevOps Program (8-week intensive)
+            10. Core Strengths
+
+            REQUIREMENTS:
+            1. Use the EXACT LaTeX template structure from the system prompt
+            2. PRESERVE ALL experience data - include ALL bullet points from Red Fibre and SecurePoint
+            3. Tailor the Professional Profile to match JD keywords as EXPERIENCED developer
+            4. Include ALL 7 projects mentioned in candidate data
+            5. Properly escape LaTeX special characters: #, $, %, &, _, {, }, ~, ^, \\
+            6. Maintain the charter font and twocolentry/onecolentry formatting
+
+            OUTPUT FORMAT:
+            Return a valid JSON object with the structure defined in the system prompt.
+            The latex_cv field must contain complete, compilable LaTeX code.
+
+            IMPORTANT:
+            - The CV should be 2 PAGES to include all experience and projects
+            - Use the candidate's ACTUAL data - do not invent information
+            - Position as experienced developer (1.5+ years) seeking mid-level roles
+            - Include specific metrics: 10,000+ daily requests, 99.9% uptime, 85% code coverage, etc.
+            - Emphasize: Professional Experience, Certifications, Projects
+            - Always mention: Stamp 1G visa - authorized to work in Ireland
             """;
     }
 

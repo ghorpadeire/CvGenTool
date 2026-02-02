@@ -159,16 +159,31 @@ public class CvGenerationService {
         pendingCv = repository.save(pendingCv);
         UUID jobId = pendingCv.getId();
 
-        log.info("Started CV generation job: {}", jobId);
+        log.info("Started CV generation job: {} (Experience Level: {})", jobId,
+                request.getExperienceLevel() != null ? request.getExperienceLevel().name() : "EXPERIENCED");
 
-        // Start async generation
-        generateCvAsync(jobId, jobDescription, companyName);
+        // Start async generation with experience level
+        String experienceLevel = request.getExperienceLevel() != null ?
+                request.getExperienceLevel().name() : "EXPERIENCED";
+        generateCvAsync(jobId, jobDescription, companyName, experienceLevel);
 
         return jobId;
     }
 
     /**
-     * Asynchronously generates the CV.
+     * Asynchronously generates the CV (defaults to EXPERIENCED level).
+     *
+     * @param jobId The generation job ID
+     * @param jobDescription The job description text
+     * @param companyName Extracted or provided company name
+     */
+    @Async("cvGenerationExecutor")
+    public void generateCvAsync(UUID jobId, String jobDescription, String companyName) {
+        generateCvAsync(jobId, jobDescription, companyName, "EXPERIENCED");
+    }
+
+    /**
+     * Asynchronously generates the CV with experience level selection.
      *
      * This method runs in a separate thread pool, allowing the
      * main request thread to return immediately.
@@ -181,19 +196,20 @@ public class CvGenerationService {
      * @param jobId The generation job ID
      * @param jobDescription The job description text
      * @param companyName Extracted or provided company name
+     * @param experienceLevel ENTRY_LEVEL or EXPERIENCED
      */
     @Async("cvGenerationExecutor")
-    public void generateCvAsync(UUID jobId, String jobDescription, String companyName) {
-        log.info("Starting async CV generation for job: {}", jobId);
+    public void generateCvAsync(UUID jobId, String jobDescription, String companyName, String experienceLevel) {
+        log.info("Starting async CV generation for job: {} (Level: {})", jobId, experienceLevel);
         long startTime = System.currentTimeMillis();
 
         try {
             // Step 1: Load candidate data
             CandidateProfile candidate = candidateDataService.getProfile();
 
-            // Step 2: Build prompts
+            // Step 2: Build prompts with experience level
             String systemPrompt = promptBuilder.loadSystemPrompt();
-            String userMessage = promptBuilder.buildUserMessage(candidate, jobDescription);
+            String userMessage = promptBuilder.buildUserMessage(candidate, jobDescription, experienceLevel);
 
             // Step 3: Call Claude API
             long claudeStart = System.currentTimeMillis();

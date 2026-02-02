@@ -78,4 +78,35 @@ public class CvGenerationRequest {
      * wants a fresh generation despite having the same JD.
      */
     private boolean forceRegenerate = false;
+
+    /**
+     * CV experience level selection.
+     *
+     * Options:
+     * - ENTRY_LEVEL: Fresh graduate CV with only Tesco experience (1 page)
+     * - EXPERIENCED: Full CV with Red Fibre + SecurePoint + Tesco (2 pages)
+     *
+     * Default is EXPERIENCED to show full professional background.
+     */
+    private ExperienceLevel experienceLevel = ExperienceLevel.EXPERIENCED;
+
+    /**
+     * Enum for CV experience level options.
+     */
+    public enum ExperienceLevel {
+        /**
+         * Entry-level/Fresh graduate CV.
+         * Shows only: Education, Certifications, Projects, Skills, Tesco (current job).
+         * Single page format suitable for graduate programs.
+         */
+        ENTRY_LEVEL,
+
+        /**
+         * Experienced professional CV.
+         * Shows all: Red Fibre (1.5 years), SecurePoint (internship), Tesco,
+         * Education, Certifications, Projects, Skills.
+         * Two-page format showcasing full professional background.
+         */
+        EXPERIENCED
+    }
 }

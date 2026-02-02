@@ -187,6 +187,69 @@ body {
     margin-top: var(--spacing-xs);
 }
 
+/* Experience Level Radio Group */
+.experience-level-group {
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.radio-option {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md) var(--spacing-lg);
+    border: 2px solid var(--color-gray-200);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    background: var(--color-white);
+}
+
+.radio-option:hover {
+    border-color: var(--color-primary-light);
+    background: var(--color-gray-50);
+}
+
+.radio-option input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    accent-color: var(--color-primary);
+    cursor: pointer;
+}
+
+.radio-option input[type="radio"]:checked + .radio-label strong {
+    color: var(--color-primary);
+}
+
+.radio-option:has(input:checked) {
+    border-color: var(--color-primary);
+    background: #eff6ff;
+}
+
+.radio-label {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.radio-label strong {
+    font-size: 1rem;
+    color: var(--color-gray-800);
+}
+
+.radio-label small {
+    font-size: 0.8rem;
+    color: var(--color-gray-500);
+    line-height: 1.4;
+}
+
 /* =============================================================================
    BUTTONS
    ============================================================================= */

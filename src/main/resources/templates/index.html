@@ -75,6 +75,27 @@ Requirements:
                     <p class="help-text">Used for naming the PDF file</p>
                 </div>
 
+                <!-- Experience Level Selection -->
+                <div class="form-group experience-level-group">
+                    <label>CV Experience Level:</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="experienceLevel" value="ENTRY_LEVEL" id="entryLevel">
+                            <span class="radio-label">
+                                <strong>🎓 Entry Level / Fresh Graduate</strong>
+                                <small>1-page CV with Education, Certifications, Projects, Skills + Tesco (current job only)</small>
+                            </span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="experienceLevel" value="EXPERIENCED" id="experiencedLevel" checked>
+                            <span class="radio-label">
+                                <strong>💼 Experienced (1.5+ years)</strong>
+                                <small>2-page CV with Red Fibre (Backend Dev) + SecurePoint (Intern) + Full Experience</small>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
                 <button type="submit" class="btn btn-primary" id="generateBtn" th:disabled="${!apiConfigured}">
                     Generate Tailored CV
                 </button>
@@ -131,6 +152,7 @@ Requirements:
 
             const jobDescription = textarea.value.trim();
             const companyName = document.getElementById('companyName').value.trim();
+            const experienceLevel = document.querySelector('input[name="experienceLevel"]:checked').value;
 
             if (jobDescription.length < 50) {
                 alert('Please enter a job description with at least 50 characters.');
@@ -142,10 +164,10 @@ Requirements:
             document.getElementById('generateBtn').disabled = true;
 
             // Submit to API
-            generateCv(jobDescription, companyName);
+            generateCv(jobDescription, companyName, experienceLevel);
         });
 
-        async function generateCv(jobDescription, companyName) {
+        async function generateCv(jobDescription, companyName, experienceLevel) {
             try {
                 const response = await fetch('/api/generate', {
                     method: 'POST',
@@ -154,7 +176,8 @@ Requirements:
                     },
                     body: JSON.stringify({
                         jobDescription: jobDescription,
-                        companyName: companyName || null
+                        companyName: companyName || null,
+                        experienceLevel: experienceLevel
                     })
                 });
 
