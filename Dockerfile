@@ -47,6 +47,9 @@ RUN mvn clean package -DskipTests -B
 # Using JRE-only image for smaller footprint
 FROM eclipse-temurin:17-jre-alpine
 
+# Install wget for health checks (not included in alpine by default)
+RUN apk add --no-cache wget
+
 # Add metadata labels
 LABEL maintainer="Pranav Ghorpade <pranav.ghorpade3108@gmail.com>"
 LABEL description="CV Generator - Powered by Claude AI"
@@ -60,7 +63,8 @@ RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 WORKDIR /app
 
 # Copy the built JAR from builder stage
-COPY --from=builder /app/target/*.jar app.jar
+# Using explicit pattern to avoid matching .jar.original files
+COPY --from=builder /app/target/cv-generator-*.jar app.jar
 
 # Change ownership to non-root user
 RUN chown -R appuser:appgroup /app
