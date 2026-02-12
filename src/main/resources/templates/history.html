@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!--
+    history.html - Generation history page
+
+    Shows all previously generated CVs with download links.
+
+    @author Pranav Ghorpade
+    @version 1.0
+-->
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generation History - CV Generator</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>CV Generator</h1>
+            <p class="subtitle">Generation History</p>
+        </header>
+
+        <main class="main-content history-page">
+            <div class="history-header">
+                <h2>Your Generated CVs</h2>
+                <a href="/" class="btn btn-primary">Generate New CV</a>
+            </div>
+
+            <!-- Empty State -->
+            <div class="empty-state" th:if="${generations.isEmpty()}">
+                <div class="empty-icon">📄</div>
+                <h3>No CVs Generated Yet</h3>
+                <p>Start by pasting a job description to generate your first tailored CV.</p>
+                <a href="/" class="btn btn-primary">Generate Your First CV</a>
+            </div>
+
+            <!-- History List -->
+            <div class="history-list" th:unless="${generations.isEmpty()}">
+                <div th:each="cv : ${generations}" class="history-item">
+                    <div class="history-item-header">
+                        <div class="history-item-info">
+                            <h3 class="company-name" th:text="${cv.companyName} ?: 'Unknown Company'">Google</h3>
+                            <p class="job-title" th:text="${cv.jobTitle} ?: 'Position'">Senior Developer</p>
+                        </div>
+                        <div class="history-item-meta">
+                            <span class="domain-badge" th:text="${cv.recruiterDomain} ?: 'General'">Backend</span>
+                            <span class="date" th:text="${#temporals.format(cv.createdAt, 'MMM dd, yyyy')}">Jan 01, 2025</span>
+                        </div>
+                    </div>
+
+                    <div class="history-item-scores">
+                        <div class="mini-score" th:if="${cv.keywordCoverage != null}">
+                            <span class="mini-score-label">Keywords:</span>
+                            <span class="mini-score-value" th:text="${cv.keywordCoverage} + '%'">92%</span>
+                        </div>
+                        <div class="mini-score" th:if="${cv.recruiterFit != null}">
+                            <span class="mini-score-label">Fit:</span>
+                            <span class="mini-score-value" th:text="${cv.recruiterFit} + '%'">87%</span>
+                        </div>
+                    </div>
+
+                    <div class="history-item-actions">
+                        <a th:href="@{/result/{id}(id=${cv.id})}" class="btn btn-small">View Details</a>
+                        <a th:href="@{/api/download/{id}/pdf(id=${cv.id})}" class="btn btn-small btn-primary">Download PDF</a>
+                        <a th:href="@{/api/download/{id}/tex(id=${cv.id})}" class="btn btn-small btn-secondary">Download .tex</a>
+                        <a th:href="@{/coach/{id}(id=${cv.id})}" class="btn btn-small btn-outline">Coach Brief</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>Created by <strong th:text="${candidateName}">Pranav Ghorpade</strong></p>
+            <p>Interview Portfolio Project | 2025</p>
+        </footer>
+    </div>
+</body>
+</html>

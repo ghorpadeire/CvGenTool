@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<!--
+    coach.html - Coach Brief page
+
+    Shows detailed skill gaps and learning roadmap.
+
+    @author Pranav Ghorpade
+    @version 1.0
+-->
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coach Brief - CV Generator</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>CV Generator</h1>
+            <p class="subtitle">Coach Brief</p>
+        </header>
+
+        <main class="main-content coach-page">
+            <div class="coach-header">
+                <a th:href="@{/result/{id}(id=${cv.id})}" class="back-link">← Back to Result</a>
+                <h2>Your Personal Coach Brief</h2>
+                <p class="coach-subtitle" th:if="${cv.companyName}">
+                    For <span th:text="${cv.companyName}">Company</span>
+                    <span th:if="${cv.jobTitle}" th:text="' - ' + ${cv.jobTitle}"></span>
+                </p>
+            </div>
+
+            <!-- Coach Brief Content - Parsed from JSON -->
+            <div id="coachContent" class="coach-content">
+                <p class="loading">Loading coach brief...</p>
+            </div>
+
+            <div class="coach-actions">
+                <a th:href="@{/result/{id}(id=${cv.id})}" class="btn btn-primary">Back to CV</a>
+                <a th:href="@{/api/download/{id}/pdf(id=${cv.id})}" class="btn btn-secondary">Download CV</a>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>Created by <strong th:text="${candidateName}">Pranav Ghorpade</strong></p>
+            <p>Interview Portfolio Project | 2025</p>
+        </footer>
+    </div>
+
+    <script th:inline="javascript">
+        const coachBriefJson = /*[[${cv.coachBriefJson}]]*/ null;
+
+        function renderCoachBrief() {
+            const container = document.getElementById('coachContent');
+
+            if (!coachBriefJson) {
+                container.innerHTML = '<p class="error">Coach brief not available.</p>';
+                return;
+            }
+
+            try {
+                const brief = JSON.parse(coachBriefJson);
+                let html = '';
+
+                // Skill Gaps Section
+                if (brief.skill_gaps && brief.skill_gaps.length > 0) {
+                    html += `
+                        <section class="coach-section">
+                            <h3>Skill Gaps to Address</h3>
+                            <ul class="skill-gaps-list">
+                                ${brief.skill_gaps.map(gap => `<li>${gap}</li>`).join('')}
+                            </ul>
+                        </section>
+                    `;
+                }
+
+                // Learning Roadmap Section
+                if (brief.learning_roadmap) {
+                    html += `<section class="coach-section"><h3>Learning Roadmap</h3>`;
+
+                    if (brief.learning_roadmap['7_days'] && brief.learning_roadmap['7_days'].length > 0) {
+                        html += `
+                            <div class="roadmap-phase">
+                                <h4>Week 1 (Days 1-7)</h4>
+                                <ul>${brief.learning_roadmap['7_days'].map(item => `<li>${item}</li>`).join('')}</ul>
+                            </div>
+                        `;
+                    }
+
+                    if (brief.learning_roadmap['14_days'] && brief.learning_roadmap['14_days'].length > 0) {
+                        html += `
+                            <div class="roadmap-phase">
+                                <h4>Week 2 (Days 8-14)</h4>
+                                <ul>${brief.learning_roadmap['14_days'].map(item => `<li>${item}</li>`).join('')}</ul>
+                            </div>
+                        `;
+                    }
+
+                    if (brief.learning_roadmap['21_days'] && brief.learning_roadmap['21_days'].length > 0) {
+                        html += `
+                            <div class="roadmap-phase">
+                                <h4>Week 3 (Days 15-21)</h4>
+                                <ul>${brief.learning_roadmap['21_days'].map(item => `<li>${item}</li>`).join('')}</ul>
+                            </div>
+                        `;
+                    }
+
+                    html += `</section>`;
+                }
+
+                // Interview Questions Section
+                if (brief.interview_questions && brief.interview_questions.length > 0) {
+                    html += `
+                        <section class="coach-section">
+                            <h3>Prepare for These Interview Questions</h3>
+                            <ol class="interview-questions-list">
+                                ${brief.interview_questions.map(q => `<li>${q}</li>`).join('')}
+                            </ol>
+                        </section>
+                    `;
+                }
+
+                container.innerHTML = html || '<p>No coach brief data available.</p>';
+
+            } catch (error) {
+                console.error('Failed to parse coach brief:', error);
+                container.innerHTML = '<p class="error">Failed to load coach brief.</p>';
+            }
+        }
+
+        renderCoachBrief();
+    </script>
+</body>
+</html>

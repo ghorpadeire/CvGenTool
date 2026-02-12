@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<!--
+    result.html - CV generation result page
+
+    Displays:
+    1. Match scores
+    2. Detected keywords
+    3. PDF preview
+    4. Download buttons
+    5. Coach brief summary
+
+    @author Pranav Ghorpade
+    @version 1.0
+-->
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Generated Successfully!</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>CV Generator</h1>
+            <p class="subtitle">Powered by Claude Sonnet 4 AI</p>
+        </header>
+
+        <main class="main-content result-page">
+            <!-- Success Banner -->
+            <div class="success-banner">
+                <span class="success-icon">✓</span>
+                <span>CV Generated Successfully!</span>
+            </div>
+
+            <!-- Summary Cards -->
+            <div class="result-summary">
+                <!-- Match Scores Card -->
+                <div class="summary-card scores-card">
+                    <h3>Match Scores</h3>
+                    <div class="score-items">
+                        <div class="score-item">
+                            <div class="score-label">Keyword Coverage</div>
+                            <div class="score-bar">
+                                <div class="score-fill"
+                                     th:style="'width: ' + (${cv.keywordCoverage} ?: 0) + '%'"
+                                     th:classappend="${cv.keywordCoverage >= 80} ? 'high' : (${cv.keywordCoverage >= 60} ? 'medium' : 'low')">
+                                </div>
+                            </div>
+                            <div class="score-value" th:text="${cv.keywordCoverage} + '%'">92%</div>
+                        </div>
+                        <div class="score-item">
+                            <div class="score-label">Recruiter Fit</div>
+                            <div class="score-bar">
+                                <div class="score-fill"
+                                     th:style="'width: ' + (${cv.recruiterFit} ?: 0) + '%'"
+                                     th:classappend="${cv.recruiterFit >= 80} ? 'high' : (${cv.recruiterFit >= 60} ? 'medium' : 'low')">
+                                </div>
+                            </div>
+                            <div class="score-value" th:text="${cv.recruiterFit} + '%'">87%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Details Card -->
+                <div class="summary-card details-card">
+                    <h3>Generation Details</h3>
+                    <div class="detail-items">
+                        <div class="detail-item">
+                            <span class="detail-label">Detected Role:</span>
+                            <span class="detail-value role-badge" th:text="${cv.recruiterDomain} ?: 'General'">Backend</span>
+                        </div>
+                        <div class="detail-item" th:if="${cv.companyName}">
+                            <span class="detail-label">Company:</span>
+                            <span class="detail-value" th:text="${cv.companyName}">Google</span>
+                        </div>
+                        <div class="detail-item" th:if="${cv.jobTitle}">
+                            <span class="detail-label">Position:</span>
+                            <span class="detail-value" th:text="${cv.jobTitle}">Senior Developer</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Generated:</span>
+                            <span class="detail-value" th:text="${#temporals.format(cv.completedAt, 'MMM dd, yyyy HH:mm')}">Jan 01, 2025 12:00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Download Section -->
+            <div class="download-section">
+                <h3>Download Your CV</h3>
+                <div class="download-buttons">
+                    <a th:href="@{/api/download/{id}/pdf(id=${cv.id})}" class="btn btn-primary btn-large">
+                        <span class="btn-icon">📄</span>
+                        Download PDF
+                    </a>
+                    <a th:href="@{/api/download/{id}/tex(id=${cv.id})}" class="btn btn-secondary btn-large">
+                        <span class="btn-icon">📝</span>
+                        Download LaTeX
+                    </a>
+                </div>
+                <p class="filename-preview">
+                    Filename: <code th:text="'PranavGhorpadeCv' + (${cv.companyName} ?: 'Company') + '.pdf'">PranavGhorpadeCvGoogle.pdf</code>
+                </p>
+            </div>
+
+            <!-- PDF Preview -->
+            <div class="preview-section">
+                <h3>PDF Preview</h3>
+                <div class="pdf-preview-container">
+                    <iframe
+                        th:src="@{/api/download/{id}/preview(id=${cv.id})}"
+                        class="pdf-preview"
+                        title="CV Preview">
+                    </iframe>
+                </div>
+            </div>
+
+            <!-- Coach Brief Section -->
+            <div class="coach-section" th:if="${cv.coachBriefJson}">
+                <h3>Coach Brief</h3>
+                <p class="coach-intro">
+                    Areas to focus on for interview preparation:
+                </p>
+                <a th:href="@{/coach/{id}(id=${cv.id})}" class="btn btn-outline">
+                    View Full Coach Brief →
+                </a>
+            </div>
+
+            <!-- Actions -->
+            <div class="action-section">
+                <a href="/" class="btn btn-primary">Generate Another CV</a>
+                <a href="/history" class="btn btn-secondary">View History</a>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>Created by <strong th:text="${candidateName}">Pranav Ghorpade</strong></p>
+            <p>Interview Portfolio Project | 2025</p>
+        </footer>
+    </div>
+
+    <script th:src="@{/js/app.js}"></script>
+</body>
+</html>

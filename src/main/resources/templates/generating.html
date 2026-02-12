@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<!--
+    generating.html - Progress page during CV generation
+
+    This page shows:
+    1. Progress bar
+    2. Current step indicator
+    3. Auto-refresh until completion
+
+    @author Pranav Ghorpade
+    @version 1.0
+-->
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generating CV...</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>CV Generator</h1>
+            <p class="subtitle">Powered by Claude Sonnet 4 AI</p>
+        </header>
+
+        <main class="main-content generating-page">
+            <div class="generating-card">
+                <div class="generating-icon">
+                    <div class="spinner large"></div>
+                </div>
+
+                <h2>Generating Your CV...</h2>
+
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                    </div>
+                    <span class="progress-text" id="progressText">0%</span>
+                </div>
+
+                <div class="steps-indicator">
+                    <div class="step" id="step1">
+                        <span class="step-icon pending">○</span>
+                        <span class="step-text">Analyzing job description</span>
+                    </div>
+                    <div class="step" id="step2">
+                        <span class="step-icon pending">○</span>
+                        <span class="step-text">Extracting keywords</span>
+                    </div>
+                    <div class="step" id="step3">
+                        <span class="step-icon pending">○</span>
+                        <span class="step-text">Generating tailored LaTeX CV</span>
+                    </div>
+                    <div class="step" id="step4">
+                        <span class="step-icon pending">○</span>
+                        <span class="step-text">Compiling to PDF</span>
+                    </div>
+                </div>
+
+                <p class="estimate-text">Estimated time: ~20-30 seconds</p>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>Please wait while we create your tailored CV</p>
+        </footer>
+    </div>
+
+    <script th:inline="javascript">
+        const jobId = /*[[${jobId}]]*/ '';
+
+        let pollInterval;
+        let pollCount = 0;
+        const maxPolls = 60; // 60 * 2 seconds = 2 minutes max
+
+        // Start polling for status
+        function startPolling() {
+            pollInterval = setInterval(checkStatus, 2000);
+        }
+
+        async function checkStatus() {
+            pollCount++;
+
+            if (pollCount > maxPolls) {
+                clearInterval(pollInterval);
+                showError('Generation is taking longer than expected. Please check back later.');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/status/' + jobId);
+                const data = await response.json();
+
+                if (data.status === 'COMPLETED') {
+                    clearInterval(pollInterval);
+                    window.location.href = '/result/' + jobId;
+                } else if (data.status === 'FAILED') {
+                    clearInterval(pollInterval);
+                    showError(data.errorMessage || 'Generation failed');
+                } else {
+                    // Update progress
+                    updateProgress(data.progress || estimateProgress());
+                }
+            } catch (error) {
+                console.error('Status check failed:', error);
+            }
+        }
+
+        function estimateProgress() {
+            // Estimate progress based on poll count
+            // Assumes ~20 seconds total, polling every 2 seconds
+            const elapsed = pollCount * 2;
+            if (elapsed < 5) return 10 + (elapsed * 4); // 10-30%
+            if (elapsed < 15) return 30 + ((elapsed - 5) * 4); // 30-70%
+            if (elapsed < 25) return 70 + ((elapsed - 15) * 2); // 70-90%
+            return Math.min(99, 90 + (elapsed - 25));
+        }
+
+        function updateProgress(progress) {
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('progressText').textContent = progress + '%';
+
+            // Update step indicators
+            if (progress >= 10) markStep('step1', 'completed');
+            if (progress >= 30) markStep('step2', 'completed');
+            if (progress >= 50) markStep('step3', 'inprogress');
+            if (progress >= 70) {
+                markStep('step3', 'completed');
+                markStep('step4', 'inprogress');
+            }
+            if (progress >= 90) markStep('step4', 'completed');
+        }
+
+        function markStep(stepId, state) {
+            const step = document.getElementById(stepId);
+            const icon = step.querySelector('.step-icon');
+
+            step.className = 'step ' + state;
+            if (state === 'completed') {
+                icon.textContent = '✓';
+                icon.className = 'step-icon completed';
+            } else if (state === 'inprogress') {
+                icon.textContent = '⏳';
+                icon.className = 'step-icon inprogress';
+            }
+        }
+
+        function showError(message) {
+            const card = document.querySelector('.generating-card');
+            card.innerHTML = `
+                <div class="error-icon">❌</div>
+                <h2>Generation Failed</h2>
+                <p class="error-message">${message}</p>
+                <a href="/" class="btn btn-primary">Try Again</a>
+            `;
+        }
+
+        // Start polling when page loads
+        startPolling();
+        updateProgress(5); // Initial progress
+    </script>
+</body>
+</html>
