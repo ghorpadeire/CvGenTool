@@ -28,6 +28,8 @@ public class DataDirectoryService {
 
     public static final String CANDIDATE_DATA_FILE = "candidate-data.json";
     public static final String SYSTEM_PROMPT_FILE = "cv-gen-system-prompt.txt";
+    public static final String CANDIDATE_DATA_FRESHER_FILE = "candidate-data-fresher.json";
+    public static final String SYSTEM_PROMPT_FRESHER_FILE = "cv-gen-system-prompt-fresher.txt";
 
     @Value("${app.data.dir:./data}")
     private String dataDir;
@@ -42,6 +44,8 @@ public class DataDirectoryService {
 
         seedIfMissing(CANDIDATE_DATA_FILE);
         seedIfMissing(SYSTEM_PROMPT_FILE);
+        seedIfMissing(CANDIDATE_DATA_FRESHER_FILE);
+        seedIfMissing(SYSTEM_PROMPT_FRESHER_FILE);
     }
 
     /**

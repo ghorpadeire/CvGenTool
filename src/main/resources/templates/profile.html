@@ -8,58 +8,99 @@
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
         <header class="header">
             <h1>Profile Editor</h1>
             <p class="subtitle">Edit your candidate data and system prompt</p>
             <p class="candidate-name" th:text="'Current: ' + ${candidateName}">Current: Pranav Ghorpade</p>
         </header>
 
-        <!-- Navigation -->
         <nav class="profile-nav">
-            <a href="/" class="btn btn-small btn-secondary">Home</a>
+            <a href="/" class="btn btn-small btn-primary">Back to Home</a>
             <a href="/history" class="btn btn-small btn-secondary">History</a>
         </nav>
 
-        <!-- Tab Selector -->
-        <div class="tab-bar">
-            <button class="tab-btn active" data-tab="candidate">Candidate Data (JSON)</button>
-            <button class="tab-btn" data-tab="prompt">System Prompt</button>
+        <!-- Section Selector: Experience vs Fresher -->
+        <div class="section-selector">
+            <button class="section-btn active" data-section="experienced">Experienced (1.5+ years)</button>
+            <button class="section-btn" data-section="fresher">Fresher (No Experience)</button>
         </div>
 
-        <!-- Candidate Data Tab -->
-        <section id="tab-candidate" class="tab-panel active">
-            <div class="editor-card">
-                <div class="editor-header">
-                    <h2>candidate-data.json</h2>
-                    <div class="editor-actions">
-                        <button id="saveCandidateBtn" class="btn btn-primary btn-small">Save</button>
-                        <button id="reloadCandidateBtn" class="btn btn-secondary btn-small">Reload</button>
-                    </div>
-                </div>
-                <textarea id="candidateEditor" class="code-editor" spellcheck="false"
-                          placeholder="Loading..."></textarea>
-                <p id="candidateStatus" class="editor-status"></p>
+        <!-- ========== EXPERIENCED SECTION ========== -->
+        <div id="section-experienced" class="profile-section active">
+            <div class="tab-bar">
+                <button class="tab-btn active" data-tab="exp-candidate">Candidate Data (JSON)</button>
+                <button class="tab-btn" data-tab="exp-prompt">System Prompt</button>
             </div>
-        </section>
 
-        <!-- System Prompt Tab -->
-        <section id="tab-prompt" class="tab-panel">
-            <div class="editor-card">
-                <div class="editor-header">
-                    <h2>cv-gen-system-prompt.txt</h2>
-                    <div class="editor-actions">
-                        <button id="savePromptBtn" class="btn btn-primary btn-small">Save</button>
-                        <button id="reloadPromptBtn" class="btn btn-secondary btn-small">Reload</button>
+            <section id="tab-exp-candidate" class="tab-panel active">
+                <div class="editor-card">
+                    <div class="editor-header">
+                        <h2>candidate-data.json</h2>
+                        <div class="editor-actions">
+                            <button id="saveExpCandidateBtn" class="btn btn-primary btn-small">Save</button>
+                            <button id="reloadExpCandidateBtn" class="btn btn-secondary btn-small">Reload</button>
+                        </div>
                     </div>
+                    <textarea id="expCandidateEditor" class="code-editor" spellcheck="false"
+                              placeholder="Loading..."></textarea>
+                    <p id="expCandidateStatus" class="editor-status"></p>
                 </div>
-                <textarea id="promptEditor" class="code-editor" spellcheck="false"
-                          placeholder="Loading..."></textarea>
-                <p id="promptStatus" class="editor-status"></p>
-            </div>
-        </section>
+            </section>
 
-        <!-- Footer -->
+            <section id="tab-exp-prompt" class="tab-panel">
+                <div class="editor-card">
+                    <div class="editor-header">
+                        <h2>cv-gen-system-prompt.txt</h2>
+                        <div class="editor-actions">
+                            <button id="saveExpPromptBtn" class="btn btn-primary btn-small">Save</button>
+                            <button id="reloadExpPromptBtn" class="btn btn-secondary btn-small">Reload</button>
+                        </div>
+                    </div>
+                    <textarea id="expPromptEditor" class="code-editor" spellcheck="false"
+                              placeholder="Loading..."></textarea>
+                    <p id="expPromptStatus" class="editor-status"></p>
+                </div>
+            </section>
+        </div>
+
+        <!-- ========== FRESHER SECTION ========== -->
+        <div id="section-fresher" class="profile-section">
+            <div class="tab-bar">
+                <button class="tab-btn active" data-tab="fresh-candidate">Candidate Data (JSON)</button>
+                <button class="tab-btn" data-tab="fresh-prompt">System Prompt</button>
+            </div>
+
+            <section id="tab-fresh-candidate" class="tab-panel active">
+                <div class="editor-card">
+                    <div class="editor-header">
+                        <h2>candidate-data-fresher.json</h2>
+                        <div class="editor-actions">
+                            <button id="saveFreshCandidateBtn" class="btn btn-primary btn-small">Save</button>
+                            <button id="reloadFreshCandidateBtn" class="btn btn-secondary btn-small">Reload</button>
+                        </div>
+                    </div>
+                    <textarea id="freshCandidateEditor" class="code-editor" spellcheck="false"
+                              placeholder="Loading..."></textarea>
+                    <p id="freshCandidateStatus" class="editor-status"></p>
+                </div>
+            </section>
+
+            <section id="tab-fresh-prompt" class="tab-panel">
+                <div class="editor-card">
+                    <div class="editor-header">
+                        <h2>cv-gen-system-prompt-fresher.txt</h2>
+                        <div class="editor-actions">
+                            <button id="saveFreshPromptBtn" class="btn btn-primary btn-small">Save</button>
+                            <button id="reloadFreshPromptBtn" class="btn btn-secondary btn-small">Reload</button>
+                        </div>
+                    </div>
+                    <textarea id="freshPromptEditor" class="code-editor" spellcheck="false"
+                              placeholder="Loading..."></textarea>
+                    <p id="freshPromptStatus" class="editor-status"></p>
+                </div>
+            </section>
+        </div>
+
         <footer class="footer">
             <p>Created by <strong th:text="${candidateName}">Pranav Ghorpade</strong></p>
             <p>Files are saved to the <code>./data/</code> directory</p>
@@ -68,13 +109,25 @@
 
     <script th:src="@{/js/app.js}"></script>
     <script>
-        // ---- Tab switching ----
-        document.querySelectorAll('.tab-btn').forEach(btn => {
+        // ---- Section switching (Experience vs Fresher) ----
+        document.querySelectorAll('.section-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+                document.querySelectorAll('.section-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.profile-section').forEach(s => s.classList.remove('active'));
                 btn.classList.add('active');
-                document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+                document.getElementById('section-' + btn.dataset.section).classList.add('active');
+            });
+        });
+
+        // ---- Tab switching within each section ----
+        document.querySelectorAll('.profile-section').forEach(section => {
+            section.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    section.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    section.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+                    btn.classList.add('active');
+                    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+                });
             });
         });
 
@@ -85,82 +138,62 @@
             if (type === 'success') setTimeout(() => { el.textContent = ''; }, 4000);
         }
 
-        // ---- Candidate Data ----
-        const candidateEditor = document.getElementById('candidateEditor');
-        const candidateStatus = document.getElementById('candidateStatus');
+        // ---- Generic editor helpers ----
+        function setupEditor(editorId, statusId, loadUrl, saveUrl, saveBtnId, reloadBtnId, isJson) {
+            const editor = document.getElementById(editorId);
+            const status = document.getElementById(statusId);
 
-        async function loadCandidateData() {
-            try {
-                const res = await fetch('/api/profile/candidate-data');
-                candidateEditor.value = await res.text();
-            } catch (e) {
-                setStatus(candidateStatus, 'Failed to load: ' + e.message, 'error');
+            async function load() {
+                try {
+                    const res = await fetch(loadUrl);
+                    editor.value = await res.text();
+                } catch (e) {
+                    setStatus(status, 'Failed to load: ' + e.message, 'error');
+                }
             }
+
+            document.getElementById(saveBtnId).addEventListener('click', async () => {
+                if (isJson) {
+                    try { JSON.parse(editor.value); }
+                    catch (e) { setStatus(status, 'Invalid JSON: ' + e.message, 'error'); return; }
+                }
+                try {
+                    const res = await fetch(saveUrl, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': isJson ? 'application/json' : 'text/plain' },
+                        body: editor.value
+                    });
+                    const data = await res.json();
+                    if (data.status === 'ok') {
+                        setStatus(status, 'Saved successfully!', 'success');
+                    } else {
+                        setStatus(status, 'Error: ' + data.message, 'error');
+                    }
+                } catch (e) {
+                    setStatus(status, 'Save failed: ' + e.message, 'error');
+                }
+            });
+
+            document.getElementById(reloadBtnId).addEventListener('click', load);
+            load();
         }
 
-        document.getElementById('saveCandidateBtn').addEventListener('click', async () => {
-            try {
-                // Quick JSON syntax check
-                JSON.parse(candidateEditor.value);
-            } catch (e) {
-                setStatus(candidateStatus, 'Invalid JSON: ' + e.message, 'error');
-                return;
-            }
-            try {
-                const res = await fetch('/api/profile/candidate-data', {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: candidateEditor.value
-                });
-                const data = await res.json();
-                if (data.status === 'ok') {
-                    setStatus(candidateStatus, 'Saved! Profile reloaded for: ' + data.name, 'success');
-                } else {
-                    setStatus(candidateStatus, 'Error: ' + data.message, 'error');
-                }
-            } catch (e) {
-                setStatus(candidateStatus, 'Save failed: ' + e.message, 'error');
-            }
-        });
+        // ---- Set up all 4 editors ----
+        setupEditor('expCandidateEditor', 'expCandidateStatus',
+            '/api/profile/candidate-data', '/api/profile/candidate-data',
+            'saveExpCandidateBtn', 'reloadExpCandidateBtn', true);
 
-        document.getElementById('reloadCandidateBtn').addEventListener('click', loadCandidateData);
+        setupEditor('expPromptEditor', 'expPromptStatus',
+            '/api/profile/system-prompt', '/api/profile/system-prompt',
+            'saveExpPromptBtn', 'reloadExpPromptBtn', false);
 
-        // ---- System Prompt ----
-        const promptEditor = document.getElementById('promptEditor');
-        const promptStatus = document.getElementById('promptStatus');
+        setupEditor('freshCandidateEditor', 'freshCandidateStatus',
+            '/api/profile/candidate-data-fresher', '/api/profile/candidate-data-fresher',
+            'saveFreshCandidateBtn', 'reloadFreshCandidateBtn', true);
 
-        async function loadSystemPrompt() {
-            try {
-                const res = await fetch('/api/profile/system-prompt');
-                promptEditor.value = await res.text();
-            } catch (e) {
-                setStatus(promptStatus, 'Failed to load: ' + e.message, 'error');
-            }
-        }
-
-        document.getElementById('savePromptBtn').addEventListener('click', async () => {
-            try {
-                const res = await fetch('/api/profile/system-prompt', {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'text/plain' },
-                    body: promptEditor.value
-                });
-                const data = await res.json();
-                if (data.status === 'ok') {
-                    setStatus(promptStatus, 'Saved! System prompt reloaded.', 'success');
-                } else {
-                    setStatus(promptStatus, 'Error: ' + data.message, 'error');
-                }
-            } catch (e) {
-                setStatus(promptStatus, 'Save failed: ' + e.message, 'error');
-            }
-        });
-
-        document.getElementById('reloadPromptBtn').addEventListener('click', loadSystemPrompt);
-
-        // ---- Init ----
-        loadCandidateData();
-        loadSystemPrompt();
+        setupEditor('freshPromptEditor', 'freshPromptStatus',
+            '/api/profile/system-prompt-fresher', '/api/profile/system-prompt-fresher',
+            'saveFreshPromptBtn', 'reloadFreshPromptBtn', false);
     </script>
 </body>
 </html>

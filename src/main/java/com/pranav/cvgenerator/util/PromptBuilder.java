@@ -9,18 +9,12 @@ import org.springframework.stereotype.Component;
 import jakarta.annotation.PostConstruct;
 import java.io.IOException;
 
-/**
- * Builder for Claude API prompts. Loads the system prompt from the
- * writable data directory and constructs user messages combining
- * candidate data with job descriptions.
- *
- * @author Pranav Ghorpade
- */
 @Component
 @Slf4j
 public class PromptBuilder {
 
     private String cachedSystemPrompt;
+    private String cachedFresherSystemPrompt;
     private final ObjectMapper objectMapper;
     private final DataDirectoryService dataDirectoryService;
 
@@ -33,16 +27,21 @@ public class PromptBuilder {
     public void init() {
         try {
             loadSystemPromptFromFile();
-            log.info("System prompt loaded successfully ({} characters)",
-                    cachedSystemPrompt.length());
+            loadFresherSystemPromptFromFile();
+            log.info("System prompts loaded (experienced: {} chars, fresher: {} chars)",
+                    cachedSystemPrompt.length(), cachedFresherSystemPrompt.length());
         } catch (IOException e) {
-            log.error("Failed to load system prompt", e);
+            log.error("Failed to load system prompts", e);
             throw new RuntimeException("Failed to load system prompt: " + e.getMessage(), e);
         }
     }
 
     private void loadSystemPromptFromFile() throws IOException {
         cachedSystemPrompt = dataDirectoryService.readString(DataDirectoryService.SYSTEM_PROMPT_FILE);
+    }
+
+    private void loadFresherSystemPromptFromFile() throws IOException {
+        cachedFresherSystemPrompt = dataDirectoryService.readString(DataDirectoryService.SYSTEM_PROMPT_FRESHER_FILE);
     }
 
     public String loadSystemPrompt() {
@@ -52,12 +51,17 @@ public class PromptBuilder {
         return cachedSystemPrompt;
     }
 
-    /** Returns the raw system prompt text for the profile editor. */
+    public String loadFresherSystemPrompt() {
+        if (cachedFresherSystemPrompt == null || cachedFresherSystemPrompt.isBlank()) {
+            throw new IllegalStateException("Fresher system prompt not loaded");
+        }
+        return cachedFresherSystemPrompt;
+    }
+
     public String getSystemPromptRaw() throws IOException {
         return dataDirectoryService.readString(DataDirectoryService.SYSTEM_PROMPT_FILE);
     }
 
-    /** Saves a new system prompt to disk and refreshes the cache. */
     public void saveSystemPrompt(String content) throws IOException {
         if (content == null || content.isBlank()) {
             throw new IllegalArgumentException("System prompt cannot be blank");
@@ -65,6 +69,10 @@ public class PromptBuilder {
         dataDirectoryService.writeString(DataDirectoryService.SYSTEM_PROMPT_FILE, content);
         cachedSystemPrompt = content;
         log.info("Saved and reloaded system prompt ({} characters)", content.length());
+    }
+
+    public String loadFresherCandidateDataRaw() throws IOException {
+        return dataDirectoryService.readString(DataDirectoryService.CANDIDATE_DATA_FRESHER_FILE);
     }
 
     public String buildUserMessage(CandidateProfile candidate, String jobDescription) {
@@ -88,6 +96,27 @@ public class PromptBuilder {
 
         message.append("---INSTRUCTIONS---\n");
         message.append(buildInstructions(experienceLevel));
+
+        return message.toString();
+    }
+
+    public String buildFresherUserMessage(String fresherCandidateJson, String jobDescription) {
+        StringBuilder message = new StringBuilder();
+
+        message.append("---CANDIDATE DATA---\n");
+        message.append(fresherCandidateJson);
+        message.append("\n\n");
+
+        message.append("---JOB DESCRIPTION---\n");
+        message.append(jobDescription.trim());
+        message.append("\n\n");
+
+        message.append("---EXPERIENCE LEVEL---\n");
+        message.append("ENTRY_LEVEL");
+        message.append("\n\n");
+
+        message.append("---INSTRUCTIONS---\n");
+        message.append(buildEntryLevelInstructions());
 
         return message.toString();
     }
@@ -130,7 +159,7 @@ public class PromptBuilder {
             5. Technical Skills
             6. Open Source Contribution (TheAlgorithms/Java - 59K+ stars)
             7. Key Projects (5-6 most relevant projects)
-            8. DevOps Program (8-week intensive)
+            8. DevOps Program
             9. Current Employment (Tesco - shows work ethic, reliability)
             10. Core Strengths
 
@@ -178,7 +207,7 @@ public class PromptBuilder {
             6. Technical Skills (proficient from work experience)
             7. Open Source Contribution (TheAlgorithms/Java - 59K+ stars)
             8. Key Projects (6-7 most relevant projects)
-            9. DevOps Program (8-week intensive)
+            9. DevOps Program
             10. Core Strengths
 
             REQUIREMENTS:
@@ -204,8 +233,10 @@ public class PromptBuilder {
     }
 
     public void reloadSystemPrompt() throws IOException {
-        log.info("Reloading system prompt...");
+        log.info("Reloading system prompts...");
         loadSystemPromptFromFile();
-        log.info("System prompt reloaded ({} characters)", cachedSystemPrompt.length());
+        loadFresherSystemPromptFromFile();
+        log.info("System prompts reloaded (experienced: {} chars, fresher: {} chars)",
+                cachedSystemPrompt.length(), cachedFresherSystemPrompt.length());
     }
 }

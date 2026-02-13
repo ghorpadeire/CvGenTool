@@ -19,7 +19,7 @@ RUN mvn clean package -DskipTests -B
 # --- Runtime Stage ---
 FROM eclipse-temurin:17-jre-alpine
 
-LABEL maintainer="Pranav Ghorpade <pranav.ghorpade3108@gmail.com>"
+LABEL maintainer="Pranav Ghorpade <ghorpade.ire@gmail.com>"
 LABEL description="CV Generator"
 LABEL version="1.0"
 

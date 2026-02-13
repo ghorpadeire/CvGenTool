@@ -187,12 +187,19 @@ public class CvGenerationService {
         long startTime = System.currentTimeMillis();
 
         try {
-            // Step 1: Load candidate data
-            CandidateProfile candidate = candidateDataService.getProfile();
+            // Step 1 & 2: Load candidate data and build prompts based on experience level
+            String systemPrompt;
+            String userMessage;
 
-            // Step 2: Build prompts with experience level
-            String systemPrompt = promptBuilder.loadSystemPrompt();
-            String userMessage = promptBuilder.buildUserMessage(candidate, jobDescription, experienceLevel);
+            if ("ENTRY_LEVEL".equals(experienceLevel)) {
+                systemPrompt = promptBuilder.loadFresherSystemPrompt();
+                String fresherData = promptBuilder.loadFresherCandidateDataRaw();
+                userMessage = promptBuilder.buildFresherUserMessage(fresherData, jobDescription);
+            } else {
+                CandidateProfile candidate = candidateDataService.getProfile();
+                systemPrompt = promptBuilder.loadSystemPrompt();
+                userMessage = promptBuilder.buildUserMessage(candidate, jobDescription, experienceLevel);
+            }
 
             // Step 3: Call Claude API
             long claudeStart = System.currentTimeMillis();

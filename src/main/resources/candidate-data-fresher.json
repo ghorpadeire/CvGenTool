@@ -10,9 +10,9 @@
     "medium": "https://pranav-ire.medium.com/"
   },
 
-  "summary": "Backend Developer with 1.5+ years of professional experience at Red Fibre building RESTful APIs with Java Spring Boot. MSc Cybersecurity (NCI Dublin, 2:1) with CEH Master certification. Prior cybersecurity internship at SecurePoint Solutions. Open source contributor to TheAlgorithms/Java (59K+ stars). Completed 8-week DevOps intensive program with hands-on CI/CD, Docker, and AWS projects. 24 GitHub repositories demonstrating coding ability. Authorized to work in Ireland (Stamp 1G visa - eligible for Critical Skills Employment Permit).",
+  "summary": "Recent MSc Cybersecurity graduate from NCI Dublin with CEH Master certification. Open source contributor to TheAlgorithms/Java (59K+ stars). Built multiple projects including SSL/TLS Assessment Tool with Spring Boot and FogSec Cloud Storage (MSc Thesis). Proficient in Java, SQL, and security tools. Currently working at Tesco Dublin while actively seeking entry-level tech roles. Authorized to work in Ireland (Stamp 1G visa).",
 
-  "experience_level": "JUNIOR_MID_LEVEL",
+  "experience_level": "ENTRY_LEVEL",
   "visa_status": "Stamp 1G (Work Authorized, eligible for Critical Skills Employment Permit)",
   "github_repos": 24,
 
@@ -57,7 +57,7 @@
   ],
 
   "devops_program": {
-    "name": "8-Week DevOps Intensive Program",
+    "name": "DevOps Intensive Program",
     "period": "November 2024 - January 2025",
     "curriculum": [
       {"week": "1-2", "topic": "CI/CD Pipeline", "tools": ["GitHub Actions", "Docker", "AWS"]},
@@ -80,7 +80,7 @@
       {
         "name": "Kubernetes Deployment",
         "tech": ["Kubernetes", "Docker", "YAML"],
-        "description": "Container orchestration basics with deployment configurations"
+        "description": "Container orchestration with deployment configurations"
       }
     ]
   },
@@ -99,7 +99,7 @@
       {
         "topic": "Day 1 DevOps Journey Launch",
         "theme": "November Building Season",
-        "engagement": "Documented 8-week learning journey"
+        "engagement": "Documented learning journey"
       },
       {
         "topic": "Open Source Contribution Announcement",
@@ -110,49 +110,13 @@
   },
 
   "current_learning": {
-    "books": ["Bulletproof SSL and TLS - Ivan Ristić"],
+    "books": ["Bulletproof SSL and TLS - Ivan Ristic"],
     "courses": ["Spring Boot course (ongoing)"],
     "framework": "Transitioning from T-shaped to M-shaped skill development",
     "three_pillars": ["Backend Development (Java/Spring Boot)", "DevOps (CI/CD, Docker, AWS)", "Cybersecurity (CEH, SSL/TLS)"]
   },
 
   "experience": [
-    {
-      "title": "Back End Developer",
-      "company": "Red Fibre",
-      "location": "India",
-      "period": "Apr 2022 - Aug 2023",
-      "type": "tech",
-      "highlights": [
-        "Developed and maintained RESTful APIs using Java Spring Boot, serving 10,000+ daily requests with 99.9% uptime",
-        "Implemented unit tests with JUnit and Mockito, achieving 85% code coverage and reducing production bugs by 40%",
-        "Optimized database queries in MySQL, improving API response times by 35% through indexing and query refactoring",
-        "Collaborated with frontend team to design and document API contracts using Swagger/OpenAPI specifications",
-        "Participated in Agile ceremonies including daily standups, sprint planning, and retrospectives",
-        "Conducted code reviews focusing on SOLID principles, clean code practices, and security best practices",
-        "Containerized microservices using Docker, reducing deployment time by 60%",
-        "Integrated CI/CD pipelines using Jenkins and GitHub Actions for automated testing and deployment"
-      ],
-      "technologies": ["Java", "Spring Boot", "MySQL", "JUnit", "Mockito", "Docker", "Jenkins", "GitHub Actions", "Swagger"],
-      "note": "First professional tech role after BTech graduation"
-    },
-    {
-      "title": "Cybersecurity Intern",
-      "company": "SecurePoint Solutions",
-      "location": "Pune, India",
-      "period": "Jan 2022 - Mar 2022",
-      "type": "internship",
-      "highlights": [
-        "Conducted vulnerability assessments on web applications using OWASP methodology and Burp Suite",
-        "Performed penetration testing on network infrastructure identifying 15+ security vulnerabilities",
-        "Documented security findings and remediation recommendations in detailed technical reports",
-        "Assisted senior analysts in security audits and compliance assessments",
-        "Gained hands-on experience with Kali Linux, Nmap, Metasploit, and Wireshark",
-        "Participated in security awareness training sessions for client employees"
-      ],
-      "technologies": ["Kali Linux", "Burp Suite", "Nmap", "Metasploit", "Wireshark", "OWASP ZAP"],
-      "note": "Cybersecurity internship during final year of BTech, before Red Fibre job"
-    },
     {
       "title": "Retail Associate",
       "company": "Tesco",
@@ -184,12 +148,11 @@
     },
     "databases": {
       "proficient": ["MySQL", "PostgreSQL"],
-      "skills": ["SQL queries", "joins", "database design basics"]
+      "skills": ["SQL queries", "joins", "database design"]
     },
     "devops": {
       "familiar": ["Git", "GitHub", "Docker", "GitHub Actions CI/CD"],
-      "learning": ["Terraform", "Kubernetes", "AWS (EC2, S3, IAM)"],
-      "note": "Completed 8-week DevOps intensive with hands-on projects"
+      "learning": ["Terraform", "Kubernetes", "AWS (EC2, S3, IAM)"]
     },
     "testing": {
       "familiar": ["Postman", "JUnit"],
@@ -271,7 +234,7 @@
   "strengths": [
     "Strong problem-solving and analytical thinking",
     "Effective communication skills (customer-facing experience at Tesco, technical writing on Medium)",
-    "Self-motivated learner (CEH Master certification, 8-week DevOps program, continuous upskilling)",
+    "Self-motivated learner (CEH Master certification, DevOps program, continuous upskilling)",
     "Open source contributor (TheAlgorithms/Java - 59K+ stars)",
     "Team collaboration and reliability",
     "Adaptable to fast-paced environments",
@@ -280,22 +243,15 @@
   ],
 
   "target_roles": [
-    "Junior/Mid-level Java Developer",
-    "Backend Developer",
-    "Software Engineer",
-    "DevOps Engineer",
-    "Security Engineer",
+    "Junior Java Developer",
+    "Graduate Software Engineer",
+    "Junior Backend Developer",
+    "Junior DevOps Engineer",
+    "Junior Security Engineer",
     "SOC Analyst",
     "Cybersecurity Analyst",
-    "Full Stack Developer"
+    "Graduate Developer"
   ],
 
-  "interview_talking_points": {
-    "open_source": "I recently contributed to TheAlgorithms/Java, one of GitHub's most popular algorithm repositories with over 59,000 stars. I enhanced the BinarySearch algorithm documentation by adding comprehensive JavaDoc, complexity analysis, and practical examples. The contribution went through code review, addressed formatting feedback, and passed all CI/CD checks.",
-    "devops_program": "I completed an 8-week DevOps intensive program where I built three hands-on projects: a Flask CI/CD pipeline with GitHub Actions and Docker, Terraform infrastructure for AWS, and Kubernetes deployment configurations.",
-    "ssl_project": "I built an SSL/TLS assessment tool using Spring Boot that connects to HTTPS servers, performs TLS handshakes, validates certificates, and displays security information like protocol version and cipher suite.",
-    "learning_approach": "I follow a structured learning approach, currently transitioning from T-shaped to M-shaped skill development with three pillars: Backend Development, DevOps, and Cybersecurity."
-  },
-
-  "note_to_ai": "IMPORTANT: This candidate has 1.5+ YEARS PROFESSIONAL EXPERIENCE with key differentiators: 1) Backend Developer at Red Fibre (1.5 years) with Spring Boot, Docker, CI/CD, 2) Cybersecurity Intern at SecurePoint Solutions, 3) Open source contribution to 59K+ star repo, 4) CEH Master certification, 5) MSc Cybersecurity, 6) 8-week DevOps program. Position as JUNIOR/MID-LEVEL candidate, NOT fresh graduate. CV should be 2 PAGES to showcase all experience and projects."
+  "note_to_ai": "IMPORTANT: This is an ENTRY-LEVEL / FRESH GRADUATE CV. DO NOT include Red Fibre or SecurePoint experience. ONLY include Tesco as current employment. Emphasize: Education (MSc + BTech), CEH Master certification, Projects, Open Source contribution. CV should be 1 PAGE. Position as a fresh MSc graduate seeking entry-level opportunities."
 }

@@ -104,15 +104,31 @@
                 </p>
             </div>
 
-            <!-- PDF Preview -->
+            <!-- Preview Tabs -->
             <div class="preview-section">
-                <h3>PDF Preview</h3>
-                <div class="pdf-preview-container">
-                    <iframe
-                        th:src="@{/api/download/{id}/preview(id=${cv.id})}"
-                        class="pdf-preview"
-                        title="CV Preview">
-                    </iframe>
+                <div class="preview-tab-bar">
+                    <button class="preview-tab-btn active" data-preview="pdf">PDF Preview</button>
+                    <button class="preview-tab-btn" data-preview="latex">LaTeX Preview</button>
+                </div>
+
+                <div id="preview-pdf" class="preview-panel active">
+                    <div class="pdf-preview-container">
+                        <iframe
+                            th:src="@{/api/download/{id}/preview(id=${cv.id})}"
+                            class="pdf-preview"
+                            title="CV PDF Preview">
+                        </iframe>
+                    </div>
+                </div>
+
+                <div id="preview-latex" class="preview-panel">
+                    <div class="latex-preview-container">
+                        <iframe
+                            th:src="@{/api/download/{id}/tex-preview(id=${cv.id})}"
+                            class="latex-preview"
+                            title="CV LaTeX Preview">
+                        </iframe>
+                    </div>
                 </div>
             </div>
 
@@ -141,5 +157,15 @@
     </div>
 
     <script th:src="@{/js/app.js}"></script>
+    <script>
+        document.querySelectorAll('.preview-tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.preview-tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.preview-panel').forEach(p => p.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById('preview-' + btn.dataset.preview).classList.add('active');
+            });
+        });
+    </script>
 </body>
 </html>

@@ -188,6 +188,52 @@ public class DownloadController {
     }
 
     /**
+     * Previews the LaTeX source inline in the browser.
+     *
+     * Returns the LaTeX content as plain text so it can be displayed
+     * in an iframe or code viewer.
+     *
+     * @param id The CV UUID
+     * @return LaTeX source as plain text for inline display
+     */
+    @GetMapping("/{id}/tex-preview")
+    public ResponseEntity<byte[]> previewTex(@PathVariable String id) {
+        log.info("LaTeX preview request for ID: {}", id);
+
+        try {
+            UUID uuid = UUID.fromString(id);
+            Optional<GeneratedCv> cvOpt = repository.findById(uuid);
+
+            if (cvOpt.isEmpty() || !cvOpt.get().isCompleted()) {
+                return ResponseEntity.notFound().build();
+            }
+
+            GeneratedCv cv = cvOpt.get();
+            String latexContent = cv.getLatexContent();
+
+            if (latexContent == null || latexContent.isBlank()) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+
+            byte[] texBytes = latexContent.getBytes(StandardCharsets.UTF_8);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(new MediaType("text", "plain", StandardCharsets.UTF_8));
+            headers.setContentDisposition(
+                    ContentDisposition.inline()
+                            .filename(generationService.generateTexFilename(cv.getCompanyName()))
+                            .build());
+            headers.setContentLength(texBytes.length);
+
+            return new ResponseEntity<>(texBytes, headers, HttpStatus.OK);
+
+        } catch (IllegalArgumentException e) {
+            log.error("Invalid UUID: {}", id);
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    /**
      * Previews the PDF inline in the browser.
      *
      * Same as downloadPdf but uses "inline" disposition so the browser

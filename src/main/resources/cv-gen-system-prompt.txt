@@ -4,7 +4,7 @@ CANDIDATE PROFILE (FIXED - DO NOT CHANGE):
 - Name: Pranav Prasanna Ghorpade
 - Location: Dublin, Ireland
 - Phone: +353 89 943 9744
-- Email: pranav.ghorpade3108@gmail.com
+- Email: ghorpade.ire@gmail.com
 - LinkedIn: linkedin.com/in/pranav-ire
 - GitHub: github.com/ghorpadeire (24 repositories)
 - Medium: pranav-ire.medium.com
@@ -279,7 +279,7 @@ REQUIRED LATEX PREAMBLE:
 HEADER FORMAT:
 \begin{center}
     {\LARGE \textbf{Pranav Prasanna Ghorpade}}\\[5pt]
-    Dublin, Ireland \textbullet{} \href{mailto:pranav.ghorpade3108@gmail.com}{pranav.ghorpade3108@gmail.com} \textbullet{} +353 89 943 9744\\
+    Dublin, Ireland \textbullet{} \href{mailto:ghorpade.ire@gmail.com}{ghorpade.ire@gmail.com} \textbullet{} +353 89 943 9744\\
     \href{https://linkedin.com/in/pranav-ire}{LinkedIn} \textbullet{} \href{https://github.com/ghorpadeire}{GitHub (24 repos)} \textbullet{} \href{https://pranav-ire.medium.com/}{Medium} \textbullet{}
     Stamp 1G (Work Authorized)
 \end{center}

@@ -5,7 +5,7 @@ An ATS-optimized CV generation app using LaTeX and the Claude Sonnet 4 API.
 ## Author
 
 **Pranav Prasanna Ghorpade**
-- Email: pranav.ghorpade3108@gmail.com
+- Email: ghorpade.ire@gmail.com
 - LinkedIn: [linkedin.com/in/pranav-ire](https://linkedin.com/in/pranav-ire)
 - GitHub: [github.com/ghorpadeire](https://github.com/ghorpadeire)
 
