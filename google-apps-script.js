@@ -162,14 +162,7 @@ function cleanJobDescription(jd) {
   if (!jd) return "";
 
   // Remove extra whitespace and newlines
-  let clean = jd.replace(/\s+/g, ' ').trim();
-
-  // Extract just the job title and key requirements (first 200 chars)
-  if (clean.length > 200) {
-    clean = clean.substring(0, 200) + "...";
-  }
-
-  return clean;
+  return jd.replace(/\s+/g, ' ').trim();
 }
 
 /**

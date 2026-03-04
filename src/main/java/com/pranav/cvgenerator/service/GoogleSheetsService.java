@@ -61,7 +61,7 @@ public class GoogleSheetsService {
             Map<String, Object> payload = new HashMap<>();
             payload.put("date", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
             payload.put("company", companyName != null ? companyName : "Unknown");
-            payload.put("jobDescription", truncate(jobDescription, 500));
+            payload.put("jobDescription", jobDescription != null ? jobDescription : "");
             payload.put("coachBrief", coachBrief != null ? coachBrief : "");
             payload.put("matchScore", matchScore);
 
