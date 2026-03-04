@@ -218,18 +218,21 @@ public class CvGenerationService {
             // Step 5: Update database with results
             updateWithSuccess(jobId, response, pdfBytes, claudeTime, latexTime);
 
-            // Step 6: Log to Google Sheets with PDF upload (async, non-blocking)
+            // Step 6: Log to Google Sheets with PDF and LaTeX upload (async, non-blocking)
             try {
                 String coachBriefText = response.getCoachBrief() != null ?
                         objectMapper.writeValueAsString(response.getCoachBrief()) : "";
                 int matchScore = response.getMatchScore() != null ?
                         response.getMatchScore().getKeywordCoveragePct() : 0;
                 String pdfFilename = generatePdfFilename(companyName);
+                String texFilename = generateTexFilename(companyName);
                 googleSheetsService.logGenerationWithPdf(
                         companyName,
                         jobDescription,
                         pdfBytes,
                         pdfFilename,
+                        response.getLatexCv(),
+                        texFilename,
                         coachBriefText,
                         matchScore
                 );

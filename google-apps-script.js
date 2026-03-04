@@ -11,6 +11,7 @@
 const SHEET_NAME = "CV Generation History";
 const FOLDER_ID = "1w1OVjXeIy0S8Za-W5DSxlrJuzZpCsepf"; // Your Google Drive folder
 const PDF_SUBFOLDER_NAME = "Generated CVs"; // Subfolder for PDFs
+const LATEX_SUBFOLDER_NAME = "Generated Latex"; // Subfolder for LaTeX files
 
 /**
  * Handles POST requests from the CV Generator app
@@ -24,6 +25,12 @@ function doPost(e) {
     let pdfUrl = "";
     if (data.pdfBase64 && data.pdfFilename) {
       pdfUrl = savePdfToDrive(data.pdfBase64, data.pdfFilename);
+    }
+
+    // Save LaTeX to Drive if provided
+    let latexUrl = "";
+    if (data.latexContent && data.latexFilename) {
+      latexUrl = saveLatexToDrive(data.latexContent, data.latexFilename);
     }
 
     // Parse coach brief to extract key info
@@ -43,7 +50,8 @@ function doPost(e) {
       data.company || "Unknown",
       cleanJD,
       data.matchScore || 0,
-      pdfUrl,  // PDF Link column
+      pdfUrl,    // PDF Link column
+      latexUrl,  // LaTeX Link column
       coachData.skillGaps,
       coachData.sevenDays,
       coachData.fourteenDays,
@@ -55,7 +63,7 @@ function doPost(e) {
     formatDataRow(sheet, lastRow);
 
     return ContentService
-      .createTextOutput(JSON.stringify({ success: true, pdfUrl: pdfUrl }))
+      .createTextOutput(JSON.stringify({ success: true, pdfUrl: pdfUrl, latexUrl: latexUrl }))
       .setMimeType(ContentService.MimeType.JSON);
 
   } catch (error) {
@@ -98,6 +106,40 @@ function savePdfToDrive(base64Data, filename) {
   } catch (error) {
     Logger.log("Error saving PDF: " + error.toString());
     return "Error saving PDF";
+  }
+}
+
+/**
+ * Saves LaTeX (.tex) file to Google Drive "Generated Latex" subfolder and returns the shareable link
+ */
+function saveLatexToDrive(latexContent, filename) {
+  try {
+    // Get or create LaTeX subfolder inside the main folder
+    const mainFolder = DriveApp.getFolderById(FOLDER_ID);
+    let latexFolder;
+
+    const subfolders = mainFolder.getFoldersByName(LATEX_SUBFOLDER_NAME);
+    if (subfolders.hasNext()) {
+      latexFolder = subfolders.next();
+    } else {
+      latexFolder = mainFolder.createFolder(LATEX_SUBFOLDER_NAME);
+    }
+
+    // Create a text blob from the LaTeX content
+    const blob = Utilities.newBlob(latexContent, 'text/plain', filename);
+
+    // Save to Drive
+    const file = latexFolder.createFile(blob);
+
+    // Set sharing to "Anyone with link can view"
+    file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+
+    // Return the shareable link
+    return file.getUrl();
+
+  } catch (error) {
+    Logger.log("Error saving LaTeX: " + error.toString());
+    return "Error saving LaTeX";
   }
 }
 
@@ -178,7 +220,7 @@ function parseCoachBrief(coachBriefJson) {
  * Formats a data row with proper styling
  */
 function formatDataRow(sheet, row) {
-  const range = sheet.getRange(row, 1, 1, 9);
+  const range = sheet.getRange(row, 1, 1, 10);
 
   // Wrap text for better readability
   range.setWrap(true);
@@ -201,6 +243,13 @@ function formatDataRow(sheet, row) {
   const pdfUrl = pdfCell.getValue();
   if (pdfUrl && pdfUrl.startsWith("http")) {
     pdfCell.setFontColor("#1a73e8");
+  }
+
+  // Make LaTeX link clickable (column 6)
+  const latexCell = sheet.getRange(row, 6);
+  const latexUrl = latexCell.getValue();
+  if (latexUrl && latexUrl.startsWith("http")) {
+    latexCell.setFontColor("#1a73e8");
   }
 }
 
@@ -232,6 +281,7 @@ function getOrCreateSheet() {
     "Job Description",
     "Match %",
     "PDF Link",
+    "LaTeX Link",
     "Skill Gaps",
     "7-Day Plan",
     "14-Day Plan",
@@ -254,10 +304,11 @@ function getOrCreateSheet() {
   sheet.setColumnWidth(3, 200);   // Job Description
   sheet.setColumnWidth(4, 70);    // Match %
   sheet.setColumnWidth(5, 150);   // PDF Link
-  sheet.setColumnWidth(6, 200);   // Skill Gaps
-  sheet.setColumnWidth(7, 200);   // 7-Day Plan
-  sheet.setColumnWidth(8, 200);   // 14-Day Plan
-  sheet.setColumnWidth(9, 250);   // Interview Questions
+  sheet.setColumnWidth(6, 150);   // LaTeX Link
+  sheet.setColumnWidth(7, 200);   // Skill Gaps
+  sheet.setColumnWidth(8, 200);   // 7-Day Plan
+  sheet.setColumnWidth(9, 200);   // 14-Day Plan
+  sheet.setColumnWidth(10, 250);  // Interview Questions
 
   // Freeze header row
   sheet.setFrozenRows(1);
@@ -331,6 +382,13 @@ function createSheetManually() {
     mainFolder.createFolder(PDF_SUBFOLDER_NAME);
     Logger.log("Created PDF subfolder: " + PDF_SUBFOLDER_NAME);
   }
+
+  // Create LaTeX subfolder
+  const latexSubfolders = mainFolder.getFoldersByName(LATEX_SUBFOLDER_NAME);
+  if (!latexSubfolders.hasNext()) {
+    mainFolder.createFolder(LATEX_SUBFOLDER_NAME);
+    Logger.log("Created LaTeX subfolder: " + LATEX_SUBFOLDER_NAME);
+  }
 }
 
 /**
@@ -346,6 +404,7 @@ function reformatExistingSheet() {
     "Job Description",
     "Match %",
     "PDF Link",
+    "LaTeX Link",
     "Skill Gaps",
     "7-Day Plan",
     "14-Day Plan",
@@ -367,15 +426,16 @@ function reformatExistingSheet() {
   sheet.setColumnWidth(3, 200);
   sheet.setColumnWidth(4, 70);
   sheet.setColumnWidth(5, 150);
-  sheet.setColumnWidth(6, 200);
+  sheet.setColumnWidth(6, 150);   // LaTeX Link
   sheet.setColumnWidth(7, 200);
   sheet.setColumnWidth(8, 200);
-  sheet.setColumnWidth(9, 250);
+  sheet.setColumnWidth(9, 200);
+  sheet.setColumnWidth(10, 250);
 
   // Format all data rows
   const lastRow = sheet.getLastRow();
   if (lastRow > 1) {
-    const dataRange = sheet.getRange(2, 1, lastRow - 1, 9);
+    const dataRange = sheet.getRange(2, 1, lastRow - 1, 10);
     dataRange.setWrap(true);
     dataRange.setVerticalAlignment("top");
   }
