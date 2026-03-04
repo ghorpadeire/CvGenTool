@@ -37,17 +37,20 @@ public class GoogleSheetsService {
     private final RestTemplate restTemplate = new RestTemplate();
 
     /**
-     * Logs a CV generation to Google Sheets with PDF upload.
+     * Logs a CV generation to Google Sheets with PDF and LaTeX upload.
      *
      * @param companyName The target company name
      * @param jobDescription The job description (truncated for storage)
      * @param pdfBytes The generated PDF file bytes
      * @param pdfFilename The filename for the PDF
+     * @param latexContent The generated LaTeX source content
+     * @param latexFilename The filename for the LaTeX file
      * @param coachBrief The coaching/interview prep brief (JSON)
      * @param matchScore The keyword match percentage
      */
     public void logGenerationWithPdf(String companyName, String jobDescription,
                                       byte[] pdfBytes, String pdfFilename,
+                                      String latexContent, String latexFilename,
                                       String coachBrief, int matchScore) {
         if (webhookUrl == null || webhookUrl.isEmpty()) {
             log.debug("Google Sheets webhook not configured, skipping log");
@@ -70,6 +73,13 @@ public class GoogleSheetsService {
                 log.info("Including PDF ({} bytes) for upload to Google Drive", pdfBytes.length);
             }
 
+            // Add LaTeX content for Google Drive upload
+            if (latexContent != null && !latexContent.isEmpty()) {
+                payload.put("latexContent", latexContent);
+                payload.put("latexFilename", latexFilename != null ? latexFilename : "CV.tex");
+                log.info("Including LaTeX source ({} chars) for upload to Google Drive", latexContent.length());
+            }
+
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -79,7 +89,7 @@ public class GoogleSheetsService {
             ResponseEntity<String> response = restTemplate.postForEntity(webhookUrl, request, String.class);
 
             if (response.getStatusCode().is2xxSuccessful()) {
-                log.info("Successfully logged to Google Sheets with PDF");
+                log.info("Successfully logged to Google Sheets with PDF and LaTeX");
             } else {
                 log.warn("Failed to log to Google Sheets: {}", response.getStatusCode());
             }
