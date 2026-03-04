@@ -397,6 +397,14 @@ function createSheetManually() {
 function reformatExistingSheet() {
   const sheet = getOrCreateSheet();
 
+  // Insert a blank column at position 6 (LaTeX Link) if it doesn't exist yet.
+  // We detect this by checking whether the current column 6 header is NOT "LaTeX Link".
+  const currentCol6Header = sheet.getRange(1, 6).getValue();
+  if (currentCol6Header !== "LaTeX Link") {
+    sheet.insertColumnBefore(6);
+    Logger.log("Inserted new column at position 6 for LaTeX Link");
+  }
+
   // Update headers
   const headers = [
     "Date",
