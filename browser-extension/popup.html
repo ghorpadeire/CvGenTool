@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV Generator</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-left">
+      <span class="logo">⚡</span>
+      <span class="title">CV Generator</span>
+    </div>
+    <button class="settings-btn" id="settingsToggle" title="Settings">⚙️</button>
+  </header>
+
+  <!-- DETECTION BANNER -->
+  <div class="detection-banner" id="detectionBanner" style="display:none;">
+    <span class="detection-icon" id="detectionIcon">📄</span>
+    <span class="detection-text" id="detectionText">Scanning page...</span>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+
+    <!-- JOB DESCRIPTION -->
+    <section class="section">
+      <div class="section-header">
+        <label class="section-label" for="jobDescription">Job Description</label>
+        <span class="char-count" id="charCount">0 / 50,000</span>
+      </div>
+      <textarea
+        id="jobDescription"
+        class="textarea"
+        placeholder="Job description will be auto-extracted from the page, or paste it here..."
+        rows="8"
+        maxlength="50000"
+      ></textarea>
+      <div class="extraction-status" id="extractionStatus"></div>
+    </section>
+
+    <!-- PROFILE TYPE -->
+    <section class="section">
+      <label class="section-label">CV Profile</label>
+      <div class="radio-group">
+
+        <label class="radio-card" id="cardExperienced">
+          <input type="radio" name="experienceLevel" value="EXPERIENCED" checked />
+          <div class="radio-card-content">
+            <div class="radio-card-title">
+              <span class="radio-indicator"></span>
+              Experienced
+              <span class="badge">2 pages</span>
+            </div>
+            <div class="radio-card-desc">Red Fibre · SecurePoint · Tesco</div>
+          </div>
+        </label>
+
+        <label class="radio-card" id="cardEntryLevel">
+          <input type="radio" name="experienceLevel" value="ENTRY_LEVEL" />
+          <div class="radio-card-content">
+            <div class="radio-card-title">
+              <span class="radio-indicator"></span>
+              Entry Level
+              <span class="badge badge-green">1 page</span>
+            </div>
+            <div class="radio-card-desc">Fresh grad · MSc · CEH · Tesco only</div>
+          </div>
+        </label>
+
+      </div>
+    </section>
+
+    <!-- GENERATE BUTTON -->
+    <button class="btn-generate" id="generateBtn" disabled>
+      <span class="btn-text">Generate CV</span>
+      <span class="btn-icon">→</span>
+    </button>
+
+    <!-- PROGRESS -->
+    <section class="progress-section" id="progressSection" style="display:none;">
+      <div class="progress-header">
+        <span class="progress-label" id="progressLabel">Starting...</span>
+        <span class="progress-pct" id="progressPct">0%</span>
+      </div>
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" id="progressBarFill" style="width:0%"></div>
+      </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section class="results-section" id="resultsSection" style="display:none;">
+      <div class="results-header">
+        <span class="results-icon">✅</span>
+        <span class="results-title">CV Ready!</span>
+      </div>
+      <div class="match-scores" id="matchScores"></div>
+      <div class="results-actions">
+        <button class="btn-download" id="downloadBtn">
+          ⬇ Download PDF
+        </button>
+        <button class="btn-preview" id="previewBtn">
+          👁 Preview
+        </button>
+      </div>
+    </section>
+
+    <!-- ERROR -->
+    <div class="error-box" id="errorBox" style="display:none;">
+      <span class="error-icon">⚠️</span>
+      <span class="error-msg" id="errorMsg"></span>
+    </div>
+
+  </main>
+
+  <!-- SETTINGS PANEL -->
+  <section class="settings-panel" id="settingsPanel" style="display:none;">
+    <div class="settings-title">Settings</div>
+    <div class="settings-row">
+      <label class="settings-label" for="backendUrl">Backend URL</label>
+      <input
+        type="text"
+        id="backendUrl"
+        class="settings-input"
+        placeholder="https://your-app.onrender.com"
+      />
+    </div>
+    <div class="settings-hint">Your CV Generator backend URL (no trailing slash)</div>
+    <button class="btn-save-settings" id="saveSettings">Save</button>
+    <div class="settings-saved" id="settingsSaved" style="display:none;">✓ Saved</div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    Powered by Claude AI · <span id="footerStatus">Ready</span>
+  </footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "CV Generator",
+  "version": "1.0.0",
+  "description": "Generate tailored CVs from any job posting. Extracts job descriptions, selects your profile, and delivers a PDF via your CV Generator backend.",
+
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage"
+  ],
+
+  "host_permissions": [
+    "<all_urls>"
+  ],
+
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "CV Generator"
+  }
+}
