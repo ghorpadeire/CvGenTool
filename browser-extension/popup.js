@@ -3,7 +3,7 @@
    Handles: page extraction → API call → polling → PDF download
    ============================================================ */
 
-const DEFAULT_BACKEND = 'http://localhost:8055';
+const DEFAULT_BACKEND = 'https://cvgentool.onrender.com';
 const POLL_INTERVAL_MS = 2000;
 
 // ── DOM refs ──────────────────────────────────────────────────
@@ -125,6 +125,13 @@ async function extractJobDescription() {
     const info = results && results[0] && results[0].result;
     if (!info) throw new Error('No result from page');
 
+    // LinkedIn feed page — user hasn't opened a specific job yet
+    if (info.linkedinFeedPage) {
+      showBanner('ℹ️', 'LinkedIn: click a job listing first', 'warning');
+      extractionStatus.textContent = 'Open a specific job posting on LinkedIn, then click the extension again.';
+      return;
+    }
+
     if (info.jobDescription && info.jobDescription.length > 50) {
       jobDescEl.value = info.jobDescription.substring(0, 50000);
       jobDescEl.dispatchEvent(new Event('input'));
@@ -149,9 +156,33 @@ function pageExtractor() {
   const result = { jobDescription: '' };
   const hostname = window.location.hostname;
 
+  // LinkedIn: warn if not on a specific job posting page
+  if (hostname.includes('linkedin.com')) {
+    const path = window.location.pathname;
+    const isJobPage = path.includes('/jobs/view/') || path.includes('/jobs/search/');
+    // In split-pane search, a job is selected when #job-details or the description panel is present
+    const hasJobPanel = !!document.querySelector(
+      '#job-details, .jobs-description, .jobs-description__content, .jobs-description-content__text'
+    );
+    if (!isJobPage && !hasJobPanel) {
+      return { jobDescription: '', linkedinFeedPage: true };
+    }
+  }
+
   // Site-specific selectors (most reliable)
   const siteSelectors = {
-    'linkedin.com':  ['.jobs-description__content', '#job-details', '.jobs-box__html-content'],
+    'linkedin.com': [
+      // Newer LinkedIn (2024-2025)
+      '.jobs-description-content__text',
+      '.jobs-description-content__text--stretch',
+      // Split-pane job panel
+      '#job-details',
+      // Classic job view
+      '.jobs-description__content',
+      '.jobs-box__html-content',
+      // Fallback container
+      '.jobs-description',
+    ],
     'indeed.com':    ['#jobDescriptionText', '.jobsearch-jobDescriptionText'],
     'glassdoor.com': ['[data-test="jobDescription"]', '.JobDetails_jobDescription__uW_fK', '.desc'],
     'jobs.ie':       ['.job-description', '.jobdetails__description'],
