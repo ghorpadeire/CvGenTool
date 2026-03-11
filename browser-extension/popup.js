@@ -25,8 +25,6 @@ const previewBtn       = document.getElementById('previewBtn');
 const errorBox         = document.getElementById('errorBox');
 const errorMsg         = document.getElementById('errorMsg');
 const footerStatus     = document.getElementById('footerStatus');
-const settingsToggle   = document.getElementById('settingsToggle');
-const settingsPanel    = document.getElementById('settingsPanel');
 const backendUrlInput  = document.getElementById('backendUrl');
 const saveSettingsBtn  = document.getElementById('saveSettings');
 const settingsSavedEl  = document.getElementById('settingsSaved');
@@ -50,15 +48,14 @@ async function loadSettings() {
     chrome.storage.local.get(['backendUrl'], result => {
       backendUrl = result.backendUrl || DEFAULT_BACKEND;
       backendUrlInput.value = backendUrl;
+      const hint = document.getElementById('urlBarHint');
+      if (result.backendUrl) {
+        hint.textContent = 'URL saved. Update and click Save to change.';
+      }
       resolve();
     });
   });
 }
-
-settingsToggle.addEventListener('click', () => {
-  const isHidden = settingsPanel.style.display === 'none';
-  settingsPanel.style.display = isHidden ? 'block' : 'none';
-});
 
 saveSettingsBtn.addEventListener('click', () => {
   const url = backendUrlInput.value.trim().replace(/\/$/, '');

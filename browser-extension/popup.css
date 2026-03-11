@@ -57,6 +57,72 @@ body {
   background: #334155;
 }
 
+/* ===== BACKEND URL BAR ===== */
+.url-bar {
+  background: #1e293b;
+  border-bottom: 1px solid #334155;
+  padding: 8px 14px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.url-bar-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #64748b;
+}
+
+.url-bar-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.url-bar-input {
+  flex: 1;
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  color: #e2e8f0;
+  font-size: 12px;
+  padding: 5px 9px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.url-bar-input:focus {
+  border-color: #6366f1;
+}
+
+.url-bar-input::placeholder {
+  color: #475569;
+}
+
+.btn-url-save {
+  background: #6366f1;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+
+.btn-url-save:hover {
+  background: #4f46e5;
+}
+
+.url-bar-hint {
+  font-size: 10px;
+  color: #475569;
+}
+
 /* ===== DETECTION BANNER ===== */
 .detection-banner {
   display: flex;

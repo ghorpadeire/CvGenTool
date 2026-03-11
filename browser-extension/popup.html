@@ -14,8 +14,23 @@
       <span class="logo">⚡</span>
       <span class="title">CV Generator</span>
     </div>
-    <button class="settings-btn" id="settingsToggle" title="Settings">⚙️</button>
   </header>
+
+  <!-- BACKEND URL BAR (always visible) -->
+  <div class="url-bar">
+    <label class="url-bar-label" for="backendUrl">Backend URL</label>
+    <div class="url-bar-row">
+      <input
+        type="text"
+        id="backendUrl"
+        class="url-bar-input"
+        placeholder="https://your-app.onrender.com"
+      />
+      <button class="btn-url-save" id="saveSettings">Save</button>
+    </div>
+    <div class="url-bar-hint" id="urlBarHint">Enter your Render/localhost URL above and click Save</div>
+    <div class="settings-saved" id="settingsSaved" style="display:none;">✓ Saved</div>
+  </div>
 
   <!-- DETECTION BANNER -->
   <div class="detection-banner" id="detectionBanner" style="display:none;">
@@ -115,23 +130,6 @@
     </div>
 
   </main>
-
-  <!-- SETTINGS PANEL -->
-  <section class="settings-panel" id="settingsPanel" style="display:none;">
-    <div class="settings-title">Settings</div>
-    <div class="settings-row">
-      <label class="settings-label" for="backendUrl">Backend URL</label>
-      <input
-        type="text"
-        id="backendUrl"
-        class="settings-input"
-        placeholder="https://your-app.onrender.com"
-      />
-    </div>
-    <div class="settings-hint">Your CV Generator backend URL (no trailing slash)</div>
-    <button class="btn-save-settings" id="saveSettings">Save</button>
-    <div class="settings-saved" id="settingsSaved" style="display:none;">✓ Saved</div>
-  </section>
 
   <!-- FOOTER -->
   <footer class="footer">
