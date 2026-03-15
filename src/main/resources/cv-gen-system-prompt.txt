@@ -279,10 +279,88 @@ REQUIRED LATEX PREAMBLE:
 HEADER FORMAT:
 \begin{center}
     {\LARGE \textbf{Pranav Prasanna Ghorpade}}\\[5pt]
-    Dublin, Ireland \textbullet{} \href{mailto:ghorpade.ire@gmail.com}{ghorpade.ire@gmail.com} \textbullet{} +353 89 943 9744\\
+    Dublin, Ireland \textbullet{} \href{mailto:ghorpade.ire@gmail.com}{ghorpade.ire@gmail.com} \textbullet{} +353 89 943 9744\\[2pt]
     \href{https://linkedin.com/in/pranav-ire}{LinkedIn} \textbullet{} \href{https://github.com/ghorpadeire}{GitHub (24 repos)} \textbullet{} \href{https://pranav-ire.medium.com/}{Medium} \textbullet{}
     Stamp 1G (Work Authorized)
 \end{center}
+
+────────────────────────────────────────
+ENTRY PATTERNS (FOLLOW EXACTLY)
+────────────────────────────────────────
+
+DATED ENTRY PATTERN (jobs, internships, open source):
+\begin{onecolentry}
+\textbf{Job Title} \textemdash{} Company, Location \hfill \textit{Month YYYY -- Month YYYY}
+\vspace{0.07cm}
+\begin{highlights}
+\item Bullet point one
+\item Bullet point two
+\end{highlights}
+\end{onecolentry}
+\vspace{0.25cm}
+
+EDUCATION ENTRY PATTERN (grade on line 2, after \\):
+\begin{onecolentry}
+\textbf{Degree Name} \textemdash{} University, Country \hfill \textit{Year -- Year} \\
+\textbf{Grade: X.X/10 or Class}
+\vspace{0.07cm}
+\begin{highlights}
+\item Module or thesis detail
+\end{highlights}
+\end{onecolentry}
+\vspace{0.25cm}
+
+PROJECT ENTRY PATTERN (tech stack on the right, no \textemdash{}):
+\begin{onecolentry}
+\textbf{Project Name} \hfill \textit{Tech1, Tech2, Tech3, Tech4}
+\vspace{0.07cm}
+\begin{highlights}
+\item What it does and key achievement
+\item Second technical detail
+\end{highlights}
+\end{onecolentry}
+\vspace{0.25cm}
+
+CERTIFICATIONS TABLE PATTERN (2 certs per row):
+\begin{onecolentry}
+\begin{tabular}{@{}ll@{\hspace{2.5cm}}ll@{}}
+\textbf{Cert Name 1} & Issuer 1 & \textbf{Cert Name 2} & Issuer 2 \\[4pt]
+\textbf{Cert Name 3} & Issuer 3 & \textbf{Cert Name 4} & Issuer 4 \\[4pt]
+\textbf{In Progress Cert} & \textit{In Progress} & & \\
+\end{tabular}
+\end{onecolentry}
+
+TECHNICAL SKILLS TABLE PATTERN (category | values):
+\begin{onecolentry}
+\begin{tabular}{@{}p{3.2cm} p{12.5cm}@{}}
+\textbf{Languages}   & Core Java (Proficient), SQL, Python \\[5pt]
+\textbf{Backend}     & Spring Boot, REST APIs, MySQL \\[5pt]
+\textbf{DevOps}      & Docker, GitHub Actions, Git \\[5pt]
+\end{tabular}
+\end{onecolentry}
+
+CORE STRENGTHS TABLE PATTERN (wider left column):
+\begin{onecolentry}
+\begin{tabular}{@{}p{4.5cm} p{11.2cm}@{}}
+\textbf{Strength Label}   & One sentence description \\[5pt]
+\textbf{Strength Label 2} & One sentence description \\[5pt]
+\end{tabular}
+\end{onecolentry}
+
+SPACING RULES:
+- Title line to bullets:              \vspace{0.07cm}
+- Between entries in same section:    \vspace{0.25cm}
+- Table row spacing (skills):         [5pt]
+- Table row spacing (certifications): [4pt]
+- Name to contact line:               \\[5pt]
+- Contact line to links line:         \\[2pt]
+
+WHAT TO AVOID:
+- NEVER use \twocolentry for dated entries — use \onecolentry + \hfill always
+- NEVER use " - " as a separator — always use \textemdash{}
+- NEVER put all certifications in one line — use the 2-column table pattern
+- NEVER put all technical skills in one paragraph — use the labelled table pattern
+- NEVER justify text (keep \raggedright)
 
 ────────────────────────────────────────
 WHEN GENERATING CV - CRITICAL RULES
