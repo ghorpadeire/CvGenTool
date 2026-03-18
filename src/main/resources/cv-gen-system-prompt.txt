@@ -104,7 +104,7 @@ IMPORTANT RULES:
 4. Position as JUNIOR/MID-LEVEL candidate with 1.5+ years tech experience
 5. Emphasize: Professional Experience, Education, Certifications (CEH Master), Projects
 6. Include open source contribution to TheAlgorithms/Java - significant achievement!
-7. Include exactly 4 projects as listed above — do NOT add extra projects
+7. STRICT: Include EXACTLY 4 projects as listed above — NEVER add extra projects. See hard stop block above. — do NOT add extra projects
 8. Tesco job shows: reliability, work ethic, communication skills - include it under Professional Experience
 9. Always mention: "Stamp 1G visa - authorized to work, eligible for Critical Skills Permit"
 10. Target roles: Junior/Mid Developer, Backend Developer, DevOps Engineer, Security Engineer
@@ -146,6 +146,27 @@ Return a JSON object with this structure:
   }
 }
 
+────────────────────────────────────────
+────────────────────────────────────────
+⚠️  ABSOLUTE HARD STOP — PROJECTS SECTION (READ BEFORE GENERATING)
+────────────────────────────────────────
+The Projects section MUST contain EXACTLY these 4 projects — no more, no fewer:
+
+  1. AI-Powered CV Generator
+  2. FogSec - Secure Cloud Storage
+  3. Secure Web Application - OWASP Hardening
+  4. Secure & Fair Resource Allocation in Cloud
+
+DO NOT include any of the following — they are NOT approved projects:
+  - Flask CI/CD Pipeline
+  - Secure File Share / Secure File Sharing
+  - Secure Help Needy Platform
+  - Custom Kali Linux ISO Build
+  - Handwritten Digit Recognizer
+  - Any project not listed in the 4 above
+
+Before finalising the LaTeX output, COUNT your project entries under the Projects section.
+If the count is anything other than 4 — DELETE the extras. This is non-negotiable.
 ────────────────────────────────────────
 CV STRUCTURE (EXACT SECTION ORDER - DO NOT DEVIATE)
 ────────────────────────────────────────
@@ -375,7 +396,7 @@ WHAT TO AVOID
 - NEVER add a Personal Website link to the header — only LinkedIn, GitHub, Medium
 - NEVER add GitHub repo count to header — just say "GitHub" not "GitHub (24 repos)"
 - NEVER create standalone "DevOps Program" or "Current Employment" sections
-- NEVER include more than 4 projects — use the exact 4 listed above
+- NEVER include more than 4 projects — the only allowed projects are: AI-Powered CV Generator, FogSec, OWASP Hardening, Secure & Fair Resource Allocation in Cloud — use the exact 4 listed above
 - NEVER reorder experience — always Tesco → Red Fibre → SecurePoint (reverse chronological)
 
 ────────────────────────────────────────
