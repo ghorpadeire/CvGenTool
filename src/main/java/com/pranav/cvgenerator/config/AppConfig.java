@@ -124,14 +124,15 @@ public class AppConfig {
     public Executor cvGenerationExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
 
-        // Core threads - always running
-        executor.setCorePoolSize(2);
+        // Core threads - always running (one per typical concurrent user)
+        executor.setCorePoolSize(4);
 
-        // Maximum threads - created when queue is full
-        executor.setMaxPoolSize(4);
+        // Maximum threads - burst capacity for traffic spikes
+        executor.setMaxPoolSize(8);
 
-        // Queue capacity - requests wait here when all threads busy
-        executor.setQueueCapacity(100);
+        // Queue capacity - buffers requests when all threads busy
+        // Each CV gen takes 15-60s; keep queue small to fail-fast rather than pile up
+        executor.setQueueCapacity(20);
 
         // Thread naming for debugging
         executor.setThreadNamePrefix("cv-gen-");
