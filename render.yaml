@@ -6,9 +6,39 @@ services:
     branch: main
     plan: free
     dockerfilePath: ./Dockerfile
+    healthCheckPath: /
+
     envVars:
+      # ── Required ──────────────────────────────────────────────────────────
+      # Claude API key — set in Render dashboard, never commit the value
       - key: CLAUDE_API_KEY
         sync: false
+
+      # ── Render-injected ───────────────────────────────────────────────────
+      # Render sets PORT=10000 for Docker services automatically
       - key: PORT
         value: 10000
-    healthCheckPath: /
+
+      # ── Keep-alive (REQUIRED for free tier) ───────────────────────────────
+      # Render free tier spins down after 15 min of inactivity.
+      # These two settings keep the app alive and warm.
+      #
+      # KEEPALIVE_URL must be your Render service URL, e.g.:
+      #   https://pranav-cv-generator.onrender.com
+      # Set it in the Render dashboard after first deploy.
+      - key: KEEPALIVE_ENABLED
+        value: true
+      - key: KEEPALIVE_URL
+        sync: false
+
+      # ── Optional integrations ─────────────────────────────────────────────
+      # Google Apps Script webhook for CV history logging to Google Sheets
+      - key: GOOGLE_SHEETS_WEBHOOK
+        sync: false
+
+      # ── Local-dev overrides (leave unset on Render) ───────────────────────
+      # These default to prod-safe values; override locally if needed:
+      #   H2_CONSOLE_ENABLED=true   → enables /h2-console
+      #   THYMELEAF_CACHE=false     → disables template caching for hot reload
+      #   JPA_SHOW_SQL=true         → logs SQL queries
+      #   LOG_LEVEL_APP=DEBUG       → verbose app logging
