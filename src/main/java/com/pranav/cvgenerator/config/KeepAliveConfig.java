@@ -15,7 +15,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
 /**
  * Keep-alive scheduler for free-tier hosting (Render, Railway, etc.)
@@ -34,26 +34,30 @@ public class KeepAliveConfig {
     @Value("${keepalive.url:}")
     private String keepAliveUrl;
 
-    private final RestTemplate restTemplate = new RestTemplate();
+    private final WebClient webClient = WebClient.create();
 
     /**
-     * Pings the application every 10 minutes to keep it alive.
+     * Pings the application to keep it alive and warm up lazy beans.
      *
-     * Runs on a fixed rate of 600,000 milliseconds (10 minutes).
+     * initialDelay=15000 fires 15s after startup, serving as a warm-up ping
+     * that initialises lazy beans before the first real user request.
+     * Subsequent pings run every 10 minutes to prevent free-tier spin-down.
      */
-    @Scheduled(fixedRate = 600000) // Every 10 minutes
+    @Scheduled(initialDelay = 15000, fixedRate = 600000)
     public void keepAlive() {
         if (keepAliveUrl == null || keepAliveUrl.isEmpty()) {
             log.debug("Keep-alive URL not configured, skipping ping");
             return;
         }
 
-        try {
-            log.debug("Sending keep-alive ping to: {}", keepAliveUrl);
-            restTemplate.getForObject(keepAliveUrl, String.class);
-            log.debug("Keep-alive ping successful");
-        } catch (Exception e) {
-            log.warn("Keep-alive ping failed: {}", e.getMessage());
-        }
+        log.debug("Sending keep-alive ping to: {}", keepAliveUrl);
+        webClient.get()
+                .uri(keepAliveUrl)
+                .retrieve()
+                .toBodilessEntity()
+                .subscribe(
+                        r -> log.debug("Keep-alive ping successful"),
+                        e -> log.warn("Keep-alive ping failed: {}", e.getMessage())
+                );
     }
 }

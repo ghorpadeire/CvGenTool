@@ -74,6 +74,7 @@ ENV JAVA_OPTS="-XX:+UseContainerSupport \
                -XX:MaxRAMPercentage=75.0 \
                -Djava.security.egd=file:/dev/./urandom \
                -XX:SharedArchiveFile=/app/app-cds.jsa \
-               -Xshare:on"
+               -Xshare:on \
+               -XX:+UseZGC"
 
 ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -Dserver.port=${PORT:-8055} org.springframework.boot.loader.JarLauncher"]

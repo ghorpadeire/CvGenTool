@@ -11,9 +11,9 @@ package com.pranav.cvgenerator.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.*;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -34,7 +34,10 @@ public class GoogleSheetsService {
     @Value("${google.sheets.webhook.url:}")
     private String webhookUrl;
 
-    private final RestTemplate restTemplate = new RestTemplate();
+    // WebClient with generous buffer for base64-encoded PDF payloads (can be several MB)
+    private final WebClient webClient = WebClient.builder()
+            .codecs(c -> c.defaultCodecs().maxInMemorySize(20 * 1024 * 1024))
+            .build();
 
     /**
      * Logs a CV generation to Google Sheets with PDF and LaTeX upload.
@@ -80,19 +83,20 @@ public class GoogleSheetsService {
                 log.info("Including LaTeX source ({} chars) for upload to Google Drive", latexContent.length());
             }
 
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
-
-            HttpEntity<Map<String, Object>> request = new HttpEntity<>(payload, headers);
-
             log.info("Logging CV generation to Google Sheets for company: {}", companyName);
-            ResponseEntity<String> response = restTemplate.postForEntity(webhookUrl, request, String.class);
 
-            if (response.getStatusCode().is2xxSuccessful()) {
-                log.info("Successfully logged to Google Sheets with PDF and LaTeX");
-            } else {
-                log.warn("Failed to log to Google Sheets: {}", response.getStatusCode());
-            }
+            // Fire-and-forget: subscribe() returns immediately, freeing the cv-gen thread.
+            // Errors are logged but never propagate to the caller.
+            webClient.post()
+                    .uri(webhookUrl)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .bodyValue(payload)
+                    .retrieve()
+                    .toBodilessEntity()
+                    .subscribe(
+                            response -> log.info("Successfully logged to Google Sheets with PDF and LaTeX"),
+                            error -> log.warn("Failed to log to Google Sheets: {}", error.getMessage())
+                    );
         } catch (Exception e) {
             log.error("Error logging to Google Sheets: {}", e.getMessage());
             // Don't throw - logging failure shouldn't break CV generation

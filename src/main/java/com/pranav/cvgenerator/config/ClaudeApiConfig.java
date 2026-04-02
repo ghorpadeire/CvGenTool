@@ -8,12 +8,14 @@
  */
 package com.pranav.cvgenerator.config;
 
+import io.netty.channel.ChannelOption;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.netty.http.client.HttpClient;
+import reactor.netty.resources.ConnectionProvider;
 
 import java.time.Duration;
 
@@ -133,8 +135,17 @@ public class ClaudeApiConfig {
      */
     @Bean(name = "claudeWebClient")
     public WebClient claudeWebClient() {
-        // Configure HTTP client with timeout
-        HttpClient httpClient = HttpClient.create()
+        // Explicit connection pool: prevents unbounded connection growth under retry load
+        // max 10 connections to Claude API (1 per concurrent cv-gen thread with headroom)
+        ConnectionProvider provider = ConnectionProvider.builder("claude-pool")
+                .maxConnections(10)
+                .pendingAcquireMaxCount(20)
+                .pendingAcquireTimeout(Duration.ofSeconds(30))
+                .maxIdleTime(Duration.ofSeconds(60))
+                .build();
+
+        HttpClient httpClient = HttpClient.create(provider)
+                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000)
                 .responseTimeout(Duration.ofMillis(timeout));
 
         // Build WebClient with Claude API configuration
