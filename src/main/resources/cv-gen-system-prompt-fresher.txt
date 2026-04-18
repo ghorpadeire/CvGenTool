@@ -135,7 +135,7 @@ CV STRUCTURE (1 PAGE - Fresh Graduate)
 7. Key Projects (5-6 most relevant projects)
 8. DevOps Program
 9. Current Employment (Tesco - shows work ethic, reliability)
-10. Core Strengths
+
 
 PROFILE SUMMARY TEMPLATES (FRESH GRADUATE)
 
@@ -284,13 +284,7 @@ TECHNICAL SKILLS TABLE PATTERN (category | values):
 \end{tabular}
 \end{onecolentry}
 
-CORE STRENGTHS TABLE PATTERN (wider left column):
-\begin{onecolentry}
-\begin{tabular}{@{}p{4.5cm} p{11.2cm}@{}}
-\textbf{Strength Label}   & One sentence description \\[5pt]
-\textbf{Strength Label 2} & One sentence description \\[5pt]
-\end{tabular}
-\end{onecolentry}
+
 
 SPACING RULES:
 - Title line to bullets:              \vspace{0.07cm}
