@@ -178,7 +178,7 @@ CV STRUCTURE (EXACT SECTION ORDER - DO NOT DEVIATE)
 6. Technical Skills (labelled table format)
 7. Open Source Contribution (TheAlgorithms/Java)
 8. Projects (exactly 4 projects as listed above)
-9. Core Strengths (soft skills in wide-label table format)
+
 
 DO NOT add standalone "DevOps Program" or "Current Employment" sections.
 All employment goes under "Professional Experience".
@@ -363,16 +363,7 @@ TECHNICAL SKILLS TABLE PATTERN (category | values):
 \end{tabular}
 \end{onecolentry}
 
-CORE STRENGTHS TABLE PATTERN (wider left column):
-\begin{onecolentry}
-\begin{tabular}{@{}p{4.5cm} p{11.2cm}@{}}
-\textbf{Communication}          & Proven English communication skills through customer-facing role at Tesco and technical writing on Medium \\[5pt]
-\textbf{Analytical Thinking}    & Strong critical thinking demonstrated through debugging complex API issues and cybersecurity assessments \\[5pt]
-\textbf{Technical Writing}      & Experience creating detailed technical reports, API documentation, and open source contributions \\[5pt]
-\textbf{Process Improvement}    & Optimized database queries improving response times by 35\%; reduced deployment time by 60\% \\[5pt]
-\textbf{Adaptability}           & Successfully transitioned from India to Ireland, balancing retail work with intensive technical upskilling \\
-\end{tabular}
-\end{onecolentry}
+
 
 ────────────────────────────────────────
 SPACING RULES (FOLLOW EXACTLY)
